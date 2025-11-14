@@ -1,0 +1,17 @@
+name: 🐛 Bug Report
+description: Report a bug in the project
+labels: [bug]
+body:
+    - type: input
+      attributes:
+          label: Description
+          placeholder: What's the bug?
+          required: true
+    - type: textarea
+      attributes:
+          label: Steps to Reproduce
+          placeholder: 1. Go to...\n2. Click...\n3. See error
+    - type: input
+      attributes:
+          label: Environment
+          placeholder: Node 22 / Angular 20

@@ -1,0 +1,12 @@
+name: 💡 Feature Request
+description: Suggest a new idea or improvement
+labels: [enhancement]
+body:
+    - type: input
+      attributes:
+          label: Summary
+          placeholder: Describe your idea briefly
+    - type: textarea
+      attributes:
+          label: Why?
+          placeholder: What problem does it solve?

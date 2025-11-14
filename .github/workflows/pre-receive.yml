@@ -1,0 +1,29 @@
+name: 🧹 Quality Check (GitHub pre-receive replacement)
+
+on:
+    push:
+        branches: ["**"] # Run on all branches
+    pull_request:
+        branches: ["**"]
+
+jobs:
+    lint-and-build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: 📥 Checkout code
+              uses: actions/checkout@v4
+
+            - name: 🧰 Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 22
+
+            - name: 📦 Install dependencies
+              run: npm ci
+
+            - name: 🧹 Run ESLint
+              run: npm run lint
+
+            - name: ✨ Run Prettier check
+              run: npm run format:check
