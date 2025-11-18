@@ -1,0 +1,66 @@
+/* Sticky Header */
+.header {
+	position: sticky;
+	top: 0;
+	z-index: 1000;
+	padding: 0 1rem;
+	display: flex;
+	align-items: center;
+}
+
+/* Brand Section (Logo + Title) */
+.brand {
+	display: flex;
+	align-items: center;
+	gap: 0.7rem;
+}
+
+.logo {
+	width: 28px;
+	height: 28px;
+}
+
+.title {
+	font-size: 1.2rem;
+	font-weight: 600;
+}
+
+/* Spacer pushes right items */
+.spacer {
+	flex: 1 1 auto;
+}
+
+/* Profile button */
+.profile-btn {
+	display: flex;
+	align-items: center;
+	gap: 0.4rem;
+	padding: 0 0.6rem;
+	border-radius: 20px;
+	text-transform: none;
+}
+
+/* User Avatar */
+.avatar {
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+/* Username text */
+.username {
+	font-weight: 500;
+}
+
+/* Material toolbar theme colors */
+mat-toolbar {
+	background: var(--mat-sys-primary-container);
+	color: var(--mat-sys-on-primary-container);
+}
+
+mat-toolbar button,
+mat-toolbar mat-icon {
+	color: var(--mat-sys-on-primary-container) !important;
+	color: var(--mat-sys-on-primary-container);
+}

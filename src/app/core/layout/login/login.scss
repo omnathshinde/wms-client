@@ -1,0 +1,105 @@
+/* Parent Wrapper */
+.login-wrapper {
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 20px;
+	background-image: url("/assets/login-bg.png");
+	background-size: cover;
+	background-position: center; /* Center crop */
+	background-repeat: no-repeat; /* No repeat */
+	background-attachment: fixed; /* Optional: parallax effect */
+
+	padding: 20px;
+}
+
+/* Card Styling */
+.login-card {
+	width: 100%;
+	max-width: 380px;
+	padding: 30px;
+	border-radius: 16px;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.title {
+	text-align: center;
+	margin-bottom: 8px;
+	font-size: 1.8rem;
+	font-weight: bold;
+}
+
+.subtitle {
+	text-align: center;
+	margin-bottom: 25px;
+	font-size: 0.95rem;
+	color: #666;
+}
+
+.full-width {
+	width: 100%;
+	margin-bottom: 1rem;
+}
+
+/* Login Button */
+.login-btn {
+	height: 45px;
+	margin-top: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* Error Box */
+.error-box {
+	background: #ffe3e3;
+	color: #c62828;
+	padding: 10px;
+	font-size: 14px;
+	margin-bottom: 10px;
+	border-radius: 8px;
+	text-align: center;
+}
+
+/* Footer */
+.footer-text {
+	margin-top: 15px;
+	text-align: center;
+}
+
+.footer-text button {
+	font-size: 14px;
+}
+
+/* ===========================================
+    RESPONSIVE BREAKPOINTS
+=============================================*/
+
+/* Mobile (default) */
+
+/* Tablets */
+@media (min-width: 600px) {
+	.login-card {
+		max-width: 420px;
+		padding: 40px;
+	}
+}
+
+/* Large screens */
+@media (min-width: 1024px) {
+	.login-card {
+		max-width: 450px;
+	}
+
+	.title {
+		font-size: 2rem;
+	}
+}
+
+/* Extra large screens */
+@media (min-width: 1400px) {
+	.login-card {
+		max-width: 500px;
+	}
+}

@@ -1,0 +1,19 @@
+<mat-drawer-container class="layout-container" [hasBackdrop]="isHandset()">
+	<mat-drawer #drawer class="sidebar" [mode]="isHandset() ? 'over' : 'side'" [opened]="isDesktop() ? true : false">
+		<app-navigation></app-navigation>
+	</mat-drawer>
+
+	<mat-drawer-content class="main-content">
+		<app-header (toggleSidebar)="toggleSidebar()"></app-header>
+
+		@if (loading()) {
+			<div class="loading-overlay">
+				<mat-spinner diameter="60"></mat-spinner>
+			</div>
+		}
+
+		<mat-card class="router-content">
+			<router-outlet></router-outlet>
+		</mat-card>
+	</mat-drawer-content>
+</mat-drawer-container>

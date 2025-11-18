@@ -1,0 +1,34 @@
+<mat-toolbar color="primary" class="header">
+	<button type="button" mat-icon-button (click)="toggleSidebar.emit()">
+		<mat-icon>menu</mat-icon>
+	</button>
+
+	<span class="title">My Angular App</span>
+
+	<span class="spacer"></span>
+
+	<button type="button" mat-icon-button (click)="theme.toggle()">
+		<mat-icon>{{ theme.isDark() ? "light_mode" : "dark_mode" }}</mat-icon>
+	</button>
+	<button type="button" mat-button [matMenuTriggerFor]="menu">
+		<mat-icon>person</mat-icon>
+		Profile
+	</button>
+</mat-toolbar>
+
+<mat-menu #menu="matMenu">
+	<button type="button" mat-menu-item>
+		<mat-icon>person</mat-icon>
+		<span>Profile</span>
+	</button>
+
+	<button type="button" mat-menu-item>
+		<mat-icon>settings</mat-icon>
+		<span>Settings</span>
+	</button>
+
+	<button type="button" mat-menu-item>
+		<mat-icon>logout</mat-icon>
+		<span>Logout</span>
+	</button>
+</mat-menu>
