@@ -1,0 +1,25 @@
+.table-wrapper {
+	width: 100%;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+	overflow: auto;
+	display: flex;
+	flex-direction: column;
+	border-radius: 10px;
+}
+
+table {
+	width: 100%;
+	overflow-x: auto;
+	border: 1px solid var(--mat-sys-outline-variant);
+	border-radius: inherit;
+	border-collapse: collapse;
+}
+
+tr {
+	border: 1px solid var(--mat-sys-outline-variant);
+}
+// button,
+mat-icon {
+	color: var(--mat-sys-on-primary-container) !important;
+	color: var(--mat-sys-on-primary-container);
+}

@@ -1,1 +1,33 @@
-<p>role works!</p>
+<app-page-header>
+	<button type="button" matFab color="primary" (click)="onSearch()">
+		<mat-icon>search</mat-icon>
+	</button>
+	<button type="button" matFab color="primary" (click)="handleAction('create')">
+		<mat-icon>add</mat-icon>
+	</button>
+	<button type="button" matFab color="primary" (click)="handleAction('create')">
+		<mat-icon>cloud_upload</mat-icon>
+	</button>
+	<button type="button" matFab color="primary" (click)="handleAction('create')">
+		<mat-icon>download</mat-icon>
+	</button>
+	<button type="button" matFab (click)="onClear()">
+		<mat-icon>refresh</mat-icon>
+	</button>
+</app-page-header>
+
+<form class="search-bar" [formGroup]="searchForm" (ngSubmit)="onSearch()">
+	<mat-form-field appearance="outline">
+		<mat-label>Search by Role Name</mat-label>
+		<input matInput placeholder="Enter role name" formControlName="name" />
+	</mat-form-field>
+</form>
+<app-table-0
+	[apiUrl]="roleApiUrl"
+	[displayedColumns]="displayedColumns"
+	[actionButtons]="actionButtons"
+	[filterFields]="filterFields"
+	(action)="onAction($event)"
+	(pageChanged)="onPageChange($event)"
+	(selectedRows)="onSelectedRows($event)"
+></app-table-0>

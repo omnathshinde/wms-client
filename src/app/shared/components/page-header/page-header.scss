@@ -1,14 +1,47 @@
-.header {
+.page-header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+
+	background: var(--mat-sys-surface-container);
+	border-radius: 12px;
+	padding: 16px 20px;
 	margin-bottom: 20px;
+	border: 1px solid var(--mat-sys-outline-variant);
 }
-h2 {
-	margin: 0;
+
+.title-section {
+	display: flex;
+	flex-direction: row;
+	gap: 4px;
+
+	h2 {
+		margin: 0;
+		font-size: 2rem;
+		font-weight: 600;
+		color: var(--mat-sys-on-surface);
+	}
 }
-p {
-	margin: 0;
-	color: gray;
+
+.breadcrumb {
+	display: flex;
+	align-items: center;
+	gap: 4px;
 	font-size: 14px;
+	color: var(--mat-sys-on-surface-variant);
+}
+
+.crumb {
+	opacity: 0.8;
+}
+
+.crumb-sep {
+	font-size: 16px;
+	opacity: 0.5;
+}
+
+.actions {
+	display: flex;
+	align-items: center;
+	gap: 8px;
 }

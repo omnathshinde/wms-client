@@ -1,0 +1,72 @@
+<div class="mat-elevation-z8 table-wrapper">
+	<mat-paginator
+		[length]="totalCount"
+		[pageSize]="limit"
+		[pageSizeOptions]="pageSizeOptions"
+		(page)="onPageSizeChange($event)"
+	>
+	</mat-paginator>
+	<!-- Table -->
+	<table mat-table [dataSource]="dataSource" class="mat-elevation-z1 mat-table">
+		<!-- Selection Column -->
+		<ng-container matColumnDef="select">
+			<th mat-header-cell *matHeaderCellDef class="select-header">
+				<mat-checkbox
+					(change)="masterToggle()"
+					[checked]="isAllSelected()"
+					[indeterminate]="selection.hasValue() && !isAllSelected()"
+				>
+				</mat-checkbox>
+			</th>
+			<td mat-cell *matCellDef="let row" class="select-cell">
+				<mat-checkbox
+					(click)="$event.stopPropagation()"
+					(change)="toggleRow(row)"
+					[checked]="selection.isSelected(row)"
+				>
+				</mat-checkbox>
+			</td>
+		</ng-container>
+
+		<!-- Dynamic Data Columns -->
+		@for (col of displayedColumns; track $index) {
+			<ng-container [matColumnDef]="col.accessor.toString()">
+				<th mat-header-cell *matHeaderCellDef>{{ col.label }}</th>
+				<td mat-cell *matCellDef="let row">
+					@if (col.date) {
+						{{ row[col.accessor] | date: "short" }}
+					} @else {
+						{{ row[col.accessor] || "-" }}
+					}
+				</td>
+			</ng-container>
+		}
+
+		<!-- Actions Column -->
+		<ng-container matColumnDef="actions">
+			<th mat-header-cell *matHeaderCellDef>Actions</th>
+			<td mat-cell *matCellDef="let row" class="action-cell" (click)="$event.stopPropagation()">
+				@for (btn of actionButtons; track $index) {
+					<button
+						type="button"
+						mat-icon-button
+						color="primary"
+						[matTooltip]="btn.tooltip || btn.type"
+						(click)="handleAction(btn.type, row)"
+					>
+						<mat-icon>{{ btn.icon }}</mat-icon>
+					</button>
+				}
+			</td>
+		</ng-container>
+
+		<!-- Header and Rows -->
+		<tr mat-header-row *matHeaderRowDef="columnAccessors"></tr>
+		<tr
+			mat-row
+			*matRowDef="let row; columns: columnAccessors"
+			(click)="toggleRow(row)"
+			[class.selected]="selection.isSelected(row)"
+		></tr>
+	</table>
+</div>

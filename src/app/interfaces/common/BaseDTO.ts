@@ -1,4 +1,5 @@
 export interface BaseDTO {
+	status?: boolean;
 	createdAt?: Date;
 	updatedAt?: Date;
 	deletedAt?: Date | null;
