@@ -1,0 +1,21 @@
+.app-root {
+	height: 100vh;
+}
+
+.container {
+	height: calc(100vh - 64px);
+}
+
+.content {
+	padding: 16px;
+	display: grid;
+	gap: 16px;
+}
+
+.spacer {
+	flex: 1 1 auto;
+}
+
+mat-card {
+	padding: 16px;
+}

@@ -1,5 +1,5 @@
 @use "@angular/material" as mat;
-@use "palettes" as palettes;
+@use "base/palettes" as palettes;
 
 $light-theme: mat.m2-define-light-theme(
 	(
@@ -9,6 +9,6 @@ $light-theme: mat.m2-define-light-theme(
 			warn: palettes.$warn-palette,
 		),
 		typography: mat.m2-define-typography-config(),
-		density: -1,
+		density: -2,
 	)
 );
