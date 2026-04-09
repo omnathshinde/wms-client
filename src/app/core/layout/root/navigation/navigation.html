@@ -1,1 +1,45 @@
-<p>navigation works!</p>
+<mat-nav-list>
+	@for (item of navItems; track trackByKey($index, item)) {
+		<!-- NO CHILD -->
+		@if (!item.children) {
+			<a
+				mat-list-item
+				[routerLink]="item.route"
+				routerLinkActive="active"
+				[routerLinkActiveOptions]="{ exact: false }"
+			>
+				<mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+				<span matListItemTitle>{{ item.title }}</span>
+			</a>
+		}
+
+		<!-- WITH CHILD -->
+		@else {
+			<!-- Parent -->
+			<mat-list-item (click)="toggle(item.title)">
+				<mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+				<span matListItemTitle>{{ item.title }}</span>
+
+				<span matListItemMeta>
+					<mat-icon class="arrow" [class.open]="isOpen(item)"> expand_more </mat-icon>
+				</span>
+			</mat-list-item>
+
+			<!-- SUBMENU -->
+			<div class="submenu" [class.open]="isOpen(item)">
+				@for (child of item.children; track trackByKey($index, child)) {
+					<a
+						mat-list-item
+						class="sub-item"
+						[routerLink]="child.route"
+						routerLinkActive="active"
+						[routerLinkActiveOptions]="{ exact: false }"
+					>
+						<mat-icon matListItemIcon>{{ child.icon }}</mat-icon>
+						<span matListItemTitle>{{ child.title }}</span>
+					</a>
+				}
+			</div>
+		}
+	}
+</mat-nav-list>

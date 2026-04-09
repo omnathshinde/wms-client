@@ -1,0 +1,40 @@
+:host {
+	display: block;
+	overflow-x: hidden;
+}
+
+// Submenu animation
+.submenu {
+	overflow: hidden;
+	max-height: 0;
+	opacity: 0;
+	transition:
+		max-height 200ms ease,
+		opacity 120ms ease;
+
+	&.open {
+		max-height: 500px;
+		opacity: 1;
+	}
+}
+
+// Arrow
+.arrow {
+	transition: transform 0.18s ease;
+
+	&.open {
+		transform: rotate(180deg);
+	}
+}
+
+.mat-mdc-list-item {
+	margin: 0.1rem 0.3rem;
+
+	&:hover {
+		background: rgba(0, 0, 0, 0.04);
+	}
+}
+
+.active {
+	background: rgba(0, 0, 0, 0.08);
+}

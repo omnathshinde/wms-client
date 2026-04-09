@@ -6,5 +6,11 @@ export const routes: Routes = [
 	{
 		path: "",
 		component: Home,
+		children: [
+			{
+				path: "",
+				loadComponent: () => import("src/app/core/layout/dashboard/dashboard").then((m) => m.Dashboard),
+			},
+		],
 	},
 ];
