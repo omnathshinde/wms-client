@@ -1,6 +1,7 @@
 @use "@angular/material" as mat;
 @use "themes/light" as light;
 @use "themes/dark" as dark;
+@use "base/scrollbar";
 
 html,
 body {
