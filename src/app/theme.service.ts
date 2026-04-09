@@ -2,7 +2,7 @@ import { OverlayContainer } from "@angular/cdk/overlay";
 import { DOCUMENT } from "@angular/common";
 import { inject, Injectable, signal } from "@angular/core";
 
-export type ThemeChoice = "light" | "dark" | "system";
+export type ThemeChoice = "light" | "dark";
 
 const THEME_KEY = "theme";
 
@@ -11,18 +11,11 @@ export class ThemeService {
 	private readonly document = inject(DOCUMENT);
 	private readonly overlayContainer = inject(OverlayContainer);
 
-	private readonly theme = signal<ThemeChoice>("system");
-	private readonly media = window.matchMedia("(prefers-color-scheme: dark)");
+	private readonly theme = signal<ThemeChoice>("light");
 
 	constructor() {
-		const saved = (localStorage.getItem(THEME_KEY) as ThemeChoice | null) ?? "system";
+		const saved = (localStorage.getItem(THEME_KEY) as ThemeChoice | null) ?? "light";
 		this.set(saved);
-
-		this.media.addEventListener("change", () => {
-			if (this.theme() === "system") {
-				this.apply();
-			}
-		});
 	}
 
 	currentTheme(): ThemeChoice {
@@ -41,7 +34,7 @@ export class ThemeService {
 	}
 
 	isDark(): boolean {
-		return this.theme() === "dark" || (this.theme() === "system" && this.media.matches);
+		return this.theme() === "dark";
 	}
 
 	apply(): void {
@@ -49,11 +42,9 @@ export class ThemeService {
 		const overlayClasses = this.overlayContainer.getContainerElement().classList;
 		const dark = this.isDark();
 
-		body.classList.toggle("dark", dark);
 		body.classList.toggle("light-theme", !dark);
 		body.classList.toggle("dark-theme", dark);
 
-		overlayClasses.toggle("dark", dark);
 		overlayClasses.toggle("light-theme", !dark);
 		overlayClasses.toggle("dark-theme", dark);
 	}
