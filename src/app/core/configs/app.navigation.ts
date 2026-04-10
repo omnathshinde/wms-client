@@ -4,13 +4,13 @@ export const AppNavigation: NavItem[] = [
 	{
 		title: "Dashboard",
 		icon: "dashboard",
-		route: "/",
+		route: "/dashboard",
 		access: "Dashboard",
 		match: true,
 	},
 	{
 		title: "Masters",
-		icon: "settings",
+		icon: "admin_panel_settings",
 		children: [
 			{
 				title: "User",
@@ -20,7 +20,7 @@ export const AppNavigation: NavItem[] = [
 			},
 			{
 				title: "Role",
-				icon: "security",
+				icon: "badge",
 				route: "/masters/role",
 				access: "Role",
 			},
@@ -28,31 +28,37 @@ export const AppNavigation: NavItem[] = [
 	},
 	{
 		title: "Inward",
-		icon: "inbox",
-		route: "/masters/inward",
+		icon: "move_to_inbox",
+		route: "transactions/inward",
 		access: "User",
 	},
 	{
+		title: "QC",
+		icon: "fact_check",
+		route: "transactions/quality-check",
+		access: "QC",
+	},
+	{
 		title: "Putaway",
-		icon: "inventory",
-		route: "/masters/putaway",
+		icon: "inventory_2",
+		route: "transactions/putaway",
 		access: "Role",
 	},
 	{
 		title: "Reports",
-		icon: "description",
+		icon: "analytics",
 		children: [
 			{
-				title: "Daily Stock",
-				icon: "description",
-				route: "/reports/daily-stock",
-				access: "Daily Stock",
+				title: "Inward",
+				icon: "summarize",
+				route: "/reports/inward",
+				access: "Inward",
 			},
 			{
-				title: "Stock Ageing",
-				icon: "description",
-				route: "/reports/stock-ageing",
-				access: "Stock Ageing",
+				title: "QC",
+				icon: "rule",
+				route: "/reports/quality-check",
+				access: "QC",
 			},
 		],
 	},

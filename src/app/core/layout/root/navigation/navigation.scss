@@ -1,6 +1,7 @@
 :host {
 	display: block;
 	overflow-x: hidden;
+	scrollbar-gutter: stable;
 }
 
 // Submenu animation
@@ -28,7 +29,8 @@
 }
 
 .mat-mdc-list-item {
-	margin: 0.1rem 0.3rem;
+	padding: 0.1rem;
+	margin: 0.1rem;
 
 	&:hover {
 		background: rgba(0, 0, 0, 0.04);
@@ -37,4 +39,9 @@
 
 .active {
 	background: rgba(0, 0, 0, 0.08);
+}
+
+.active-parent {
+	background: rgba(0, 0, 0, 0.05);
+	font-weight: 500;
 }

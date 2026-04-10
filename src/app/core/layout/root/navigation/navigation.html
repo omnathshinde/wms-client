@@ -16,7 +16,7 @@
 		<!-- WITH CHILD -->
 		@else {
 			<!-- Parent -->
-			<mat-list-item (click)="toggle(item.title)">
+			<mat-list-item (click)="toggle(item.title)" [class.active-parent]="isParentActive(item)">
 				<mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
 				<span matListItemTitle>{{ item.title }}</span>
 
