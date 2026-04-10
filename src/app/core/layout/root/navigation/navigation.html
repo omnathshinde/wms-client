@@ -1,9 +1,11 @@
-<mat-nav-list>
+<mat-nav-list appNavListKeyManager>
 	@for (item of navItems; track trackByKey($index, item)) {
 		<!-- NO CHILD -->
-		@if (!item.children) {
+		@if (!item.children && item.route) {
 			<a
 				mat-list-item
+				appListItemFocusable
+				[appNavActive]="item.route"
 				[routerLink]="item.route"
 				routerLinkActive="active"
 				[routerLinkActiveOptions]="{ exact: false }"
@@ -16,7 +18,11 @@
 		<!-- WITH CHILD -->
 		@else {
 			<!-- Parent -->
-			<mat-list-item (click)="toggle(item.title)" [class.active-parent]="isParentActive(item)">
+			<mat-list-item
+				appListItemFocusable
+				(click)="toggle(item.title)"
+				[class.active-parent]="isParentActive(item)"
+			>
 				<mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
 				<span matListItemTitle>{{ item.title }}</span>
 
@@ -28,16 +34,19 @@
 			<!-- SUBMENU -->
 			<div class="submenu" [class.open]="isOpen(item)">
 				@for (child of item.children; track trackByKey($index, child)) {
-					<a
-						mat-list-item
-						class="sub-item"
-						[routerLink]="child.route"
-						routerLinkActive="active"
-						[routerLinkActiveOptions]="{ exact: false }"
-					>
-						<mat-icon matListItemIcon>{{ child.icon }}</mat-icon>
-						<span matListItemTitle>{{ child.title }}</span>
-					</a>
+					@if (child.route) {
+						<a
+							mat-list-item
+							appListItemFocusable
+							[appNavActive]="child.route"
+							[routerLink]="child.route"
+							routerLinkActive="active"
+							[routerLinkActiveOptions]="{ exact: false }"
+						>
+							<mat-icon matListItemIcon>{{ child.icon }}</mat-icon>
+							<span matListItemTitle>{{ child.title }}</span>
+						</a>
+					}
 				}
 			</div>
 		}

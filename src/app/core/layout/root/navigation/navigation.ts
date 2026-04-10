@@ -5,10 +5,13 @@ import { filter } from "rxjs";
 import { AppModule } from "src/app/core/configs/app.module";
 import { AppNavigation } from "src/app/core/configs/app.navigation";
 import { NavItem } from "src/app/interfaces/common/NavItem";
+import { ListItemFocusable } from "src/app/shared/directives/list-item-focusable.directive";
+import { NavActiveDirective } from "src/app/shared/directives/nav-active.directive";
+import { NavListKeyManager } from "src/app/shared/directives/nav-list-key-manager.directive";
 
 @Component({
 	selector: "app-navigation",
-	imports: [AppModule],
+	imports: [AppModule, ListItemFocusable, NavListKeyManager, NavActiveDirective],
 	templateUrl: "./navigation.html",
 	styleUrl: "./navigation.scss",
 })

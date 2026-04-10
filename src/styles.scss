@@ -2,6 +2,7 @@
 @use "themes/light" as light;
 @use "themes/dark" as dark;
 @use "base/scrollbar";
+@use "base/variables";
 
 html,
 body {

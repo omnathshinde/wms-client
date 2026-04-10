@@ -1,0 +1,13 @@
+@use "@angular/material" as mat;
+@use "base/palettes" as *;
+
+:root {
+	--primary-color: #{mat.m2-get-color-from-palette($primary-palette)};
+	--primary-contrast: #{mat.m2-get-color-from-palette($primary-palette, default-contrast)};
+
+	--accent-color: #{mat.m2-get-color-from-palette($accent-palette)};
+	--accent-contrast: #{mat.m2-get-color-from-palette($accent-palette, default-contrast)};
+
+	--warn-color: #{mat.m2-get-color-from-palette($warn-palette)};
+	--warn-contrast: #{mat.m2-get-color-from-palette($warn-palette, default-contrast)};
+}
