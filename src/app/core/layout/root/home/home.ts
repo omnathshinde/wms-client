@@ -9,6 +9,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { MatListModule } from "@angular/material/list";
 import { MatMenuModule } from "@angular/material/menu";
+import { MatSpinner } from "@angular/material/progress-spinner";
 import { MatRadioModule } from "@angular/material/radio";
 import { MatSelectModule } from "@angular/material/select";
 import { MatSidenavModule } from "@angular/material/sidenav";
@@ -20,6 +21,7 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { RouterOutlet } from "@angular/router";
 
 import { LayoutService } from "src/app/core/services/layout.service";
+import { StateService } from "src/app/core/services/state.service";
 import { Header } from "@core/layout/root/header/header";
 import { Navigation } from "@core/layout/root/navigation/navigation";
 
@@ -47,10 +49,13 @@ import { Navigation } from "@core/layout/root/navigation/navigation";
 		MatSlideToggleModule,
 		Navigation,
 		Header,
+		MatSpinner,
 	],
 	templateUrl: "./home.html",
 	styleUrl: "./home.scss",
 })
 export class Home {
 	layout = inject(LayoutService);
+	state = inject(StateService);
+	readonly loading = this.state.loading;
 }

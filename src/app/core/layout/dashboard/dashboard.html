@@ -1,1 +1,59 @@
-<p>dashboard works!</p>
+<div class="p-4">
+	<div class="space-y-6">
+		<!-- TOP CARDS -->
+		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+			<!-- Inventory -->
+			<mat-card class="p-4 text-center rounded-xl">
+				<h3 class="text-sm text-gray-500">Inventory</h3>
+				<p class="text-3xl font-bold mt-2">{{ data()?.inventory }}</p>
+			</mat-card>
+
+			<!-- Material -->
+			<mat-card class="p-4 text-center rounded-xl">
+				<h3 class="text-sm text-gray-500">Material</h3>
+				<p class="text-3xl font-bold mt-2">{{ data()?.material }}</p>
+			</mat-card>
+
+			<!-- QC Total -->
+			<mat-card class="p-4 text-center rounded-xl">
+				<h3 class="text-sm text-gray-500">QC Total</h3>
+				<p class="text-3xl font-bold mt-2">{{ data()?.qc?.total }}</p>
+			</mat-card>
+		</div>
+
+		<!-- QC BREAKDOWN -->
+		<div>
+			<h2 class="text-lg font-semibold mb-3">QC Breakdown</h2>
+
+			<div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+				<mat-card class="p-4 text-center rounded-xl">
+					<p class="text-sm text-gray-500">Pending</p>
+					<p class="text-xl font-bold text-yellow-500">
+						{{ data()?.qc?.pending }}
+					</p>
+				</mat-card>
+
+				<mat-card class="p-4 text-center rounded-xl">
+					<p class="text-sm text-gray-500">Approved</p>
+					<p class="text-xl font-bold text-green-500">
+						{{ data()?.qc?.approved }}
+					</p>
+				</mat-card>
+
+				<mat-card class="p-4 text-center rounded-xl">
+					<p class="text-sm text-gray-500">Rejected</p>
+					<p class="text-xl font-bold text-red-500">
+						{{ data()?.qc?.rejected }}
+					</p>
+				</mat-card>
+
+				<mat-card class="p-4 text-center rounded-xl">
+					<p class="text-sm text-gray-500">Total</p>
+					<p class="text-xl font-bold">
+						{{ data()?.qc?.total }}
+					</p>
+				</mat-card>
+			</div>
+		</div>
+	</div>
+</div>
