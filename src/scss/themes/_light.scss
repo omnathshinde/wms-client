@@ -9,6 +9,6 @@ $light-theme: mat.m2-define-light-theme(
 			warn: palettes.$warn-palette,
 		),
 		typography: mat.m2-define-typography-config(),
-		density: 1,
+		density: -2,
 	)
 );

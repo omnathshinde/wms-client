@@ -282,6 +282,10 @@ import { Component } from "../../../core/component";
 // Use path aliases
 import { Component } from "@core/component";
 import { Service } from "@app/services/service";
+
+// or
+import { Component } from "src/app/core/component";
+import { Service } from "src/app/services/service";
 ```
 
 Available aliases:

@@ -1,6 +1,7 @@
 import { Component, inject } from "@angular/core";
 
 import { LayoutService } from "src/app/core/services/layout.service";
+import { AuthService } from "@core/auth/auth.service";
 import { AppModule } from "@core/configs/app.module";
 import { ThemeService } from "@core/services/theme.service";
 
@@ -11,6 +12,11 @@ import { ThemeService } from "@core/services/theme.service";
 	styleUrl: "./header.scss",
 })
 export class Header {
-	layout = inject(LayoutService);
-	theme = inject(ThemeService);
+	readonly layout = inject(LayoutService);
+	readonly theme = inject(ThemeService);
+	readonly auth = inject(AuthService);
+
+	logout() {
+		this.auth.logout();
+	}
 }
