@@ -1,0 +1,25 @@
+<mat-card class="mb-2 p-2 rounded-lg">
+	<mat-card-title>
+		{{ breadcrumbs[breadcrumbs.length - 1].label }}
+	</mat-card-title>
+
+	<mat-card-subtitle>
+		<div class="flex items-center gap-1 flex-wrap text-sm">
+			@for (item of breadcrumbs; track $index) {
+				@if (item.route) {
+					<a [routerLink]="item.route" class="breadcrumb-link">
+						{{ item.label }}
+					</a>
+				} @else {
+					<span class="breadcrumb-current">
+						{{ item.label }}
+					</span>
+				}
+
+				@if ($index < breadcrumbs.length - 1) {
+					<mat-icon class="breadcrumb-separator">chevron_right</mat-icon>
+				}
+			}
+		</div>
+	</mat-card-subtitle>
+</mat-card>

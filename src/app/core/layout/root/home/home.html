@@ -12,13 +12,10 @@
 
 	<mat-sidenav-content class="router-content">
 		<router-outlet></router-outlet>
+		@if (loading()) {
+			<div class="loading-overlay">
+				<mat-spinner diameter="60"></mat-spinner>
+			</div>
+		}
 	</mat-sidenav-content>
 </mat-sidenav-container>
-
-<!-- Loader -->
-
-@if (loading()) {
-	<div class="loading-overlay">
-		<mat-spinner diameter="60"></mat-spinner>
-	</div>
-}

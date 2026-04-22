@@ -1,1 +1,61 @@
-<p>Role Details</p>
+<app-page-header [breadcrumbs]="pageHeader" [title]="pageTitle"></app-page-header>
+<app-container>
+	<form [formGroup]="searchForm" class="flex flex-col">
+		<mat-form-field appearance="outline" class="w-full">
+			<mat-label>Search</mat-label>
+			<input matInput placeholder="Search by name" formControlName="name" />
+		</mat-form-field>
+		<div class="flex justify-between items-center mt-2 flex-wrap gap-2">
+			<div>
+				<mat-checkbox color="primary" formControlName="status" (change)="onSearch()">
+					Show deactivated data
+				</mat-checkbox>
+			</div>
+
+			<div class="flex flex-wrap gap-2">
+				<button type="submit" mat-raised-button color="primary" (click)="onSearch()">
+					<mat-icon>search</mat-icon>
+					Search
+				</button>
+				<button type="reset" mat-raised-button color="primary" (click)="onReset()">
+					<mat-icon>autorenew</mat-icon>
+					Reset
+				</button>
+			</div>
+		</div>
+	</form>
+</app-container>
+<app-container>
+	<app-container>
+		<div class="flex justify-between items-center flex-wrap gap-2">
+			<div class="flex justify-start"></div>
+
+			<div class="flex justify-end flex-wrap gap-2">
+				<button type="button" mat-raised-button color="primary" (click)="onCreateUpdate('create')">
+					<mat-icon>add</mat-icon>
+					Create
+				</button>
+
+				<button type="button" mat-raised-button color="primary" (click)="onImport()">
+					<mat-icon>cloud_upload</mat-icon>
+					Import
+				</button>
+
+				<button type="button" mat-raised-button color="primary" (click)="onExport()">
+					<mat-icon>save_alt</mat-icon>
+					Export
+				</button>
+			</div>
+		</div>
+	</app-container>
+	<app-container>
+		<app-data-table
+			[apiUrl]="apiUrl"
+			[displayedColumns]="displayedColumns"
+			[actionButtons]="actionButtons"
+			[filterFields]="filterFields"
+			(action)="onAction($event)"
+		>
+		</app-data-table>
+	</app-container>
+</app-container>
