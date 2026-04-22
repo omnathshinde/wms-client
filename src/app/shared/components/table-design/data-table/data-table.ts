@@ -27,7 +27,11 @@ import { AppModule } from "@core/configs/app.module";
 export class DataTable<T extends { id?: number | string }> implements OnInit, OnChanges {
 	// Inputs & Outputsj
 	@Input() apiUrl = "";
-	@Input() displayedColumns: { label: string; accessor: keyof T | string | "actions"; date?: boolean }[] = [];
+	@Input() displayedColumns: {
+		label: string;
+		accessor: keyof T | ((row: T) => unknown) | "actions";
+		date?: boolean;
+	}[] = [];
 	@Input() actionButtons: {
 		icon: string;
 		type: string;

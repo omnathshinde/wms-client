@@ -17,9 +17,22 @@
 				<th mat-header-cell *matHeaderCellDef>{{ col.label }}</th>
 				<td mat-cell *matCellDef="let row">
 					@if (col.date) {
-						{{ row[col.accessor] | date: "dd/MM/yyyy hh:mm:ss a" }}
+						{{
+							(typeof col.accessor === "function"
+								? col.accessor(row)
+								: col.accessor !== "actions"
+									? row[col.accessor]
+									: null
+							) | date: "dd/MM/yyyy hh:mm:ss a"
+						}}
 					} @else {
-						{{ row[col.accessor] || "-" }}
+						{{
+							typeof col.accessor === "function"
+								? col.accessor(row)
+								: col.accessor !== "actions"
+									? row[col.accessor]
+									: "-"
+						}}
 					}
 				</td>
 			</ng-container>
