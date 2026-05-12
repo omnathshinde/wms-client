@@ -1,10 +1,11 @@
 import { Component, inject, OnInit, signal } from "@angular/core";
 import { FormGroup, Validators } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { forkJoin } from "rxjs";
 
 import { AppModule } from "src/app/core/configs/app.module";
-import { ApiResponse } from "src/app/interfaces/common/ApiResponse";
 import { RoleDTO } from "src/app/interfaces/models/RoleDTO";
+import { SiteDTO } from "src/app/interfaces/models/SiteDTO";
 import { UiComponent } from "src/app/ui/ui.component";
 
 @Component({
@@ -17,6 +18,7 @@ export class UserDialog extends UiComponent implements OnInit {
 	form!: FormGroup;
 	isEdit = false;
 	roles: RoleDTO[] = [];
+	sites: SiteDTO[] = [];
 	hidePassword = signal(true);
 
 	private readonly dialog = inject(MatDialogRef<UserDialog>);
@@ -54,11 +56,17 @@ export class UserDialog extends UiComponent implements OnInit {
 						],
 			],
 			roleId: [this.data?.roleId || "", [Validators.required]],
+			siteId: [this.data?.siteId || "", [Validators.required]],
 		});
-		this.roleService.getAll<RoleDTO>("status=1").subscribe((res: ApiResponse<RoleDTO>) => {
-			this.roles = res.rows;
+
+		forkJoin({
+			roles: this.roleService.getAll<RoleDTO>("status=1"),
+			sites: this.siteService.getAll<SiteDTO>("status=1"),
+		}).subscribe(({ roles, sites }) => {
+			this.roles = roles.rows;
+			this.sites = sites.rows;
+			this.handleAdminLock();
 		});
-		this.handleAdminLock();
 	}
 
 	handleAdminLock(): void {

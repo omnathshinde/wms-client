@@ -24,6 +24,42 @@ export const AppNavigation: NavItem[] = [
 				route: "/masters/role",
 				access: "Role",
 			},
+			{
+				title: "Material",
+				icon: "inventory",
+				route: "/masters/material",
+				access: "Material",
+			},
+			{
+				title: "Customer",
+				icon: "people",
+				route: "/masters/customer",
+				access: "Customer",
+			},
+			{
+				title: "Site",
+				icon: "location_city",
+				route: "/masters/site",
+				access: "Site",
+			},
+			{
+				title: "Zone",
+				icon: "map",
+				route: "/masters/zone",
+				access: "Zone",
+			},
+			{
+				title: "Rack",
+				icon: "view_stream",
+				route: "/masters/rack",
+				access: "Rack",
+			},
+			{
+				title: "Shelf",
+				icon: "shelves",
+				route: "/masters/shelf",
+				access: "Shelf",
+			},
 		],
 	},
 	{

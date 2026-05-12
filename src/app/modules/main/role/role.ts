@@ -28,6 +28,7 @@ export class Role {
 	displayedColumns = [
 		{ label: "Role Name", accessor: "name" as const },
 		{ label: "Created At", accessor: "createdAt" as const, date: true },
+		{ label: "Created By", accessor: "createdBy" as const },
 	];
 	get actionButtons() {
 		if (this.searchForm.get("status")?.value) {

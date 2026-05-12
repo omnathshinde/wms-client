@@ -1,0 +1,20 @@
+<mat-toolbar color="primary">
+	<mat-icon class="mr-2">person</mat-icon>
+	<span>{{ isEdit ? "Update Site Details" : "Enter Site Details" }}</span>
+</mat-toolbar>
+
+<form [formGroup]="form">
+	<mat-dialog-content>
+		<mat-form-field appearance="outline" class="w-full">
+			<mat-label>Site Name</mat-label>
+			<input matInput formControlName="name" placeholder="Enter site name" />
+			<mat-hint>Only letters allowed (min 3 characters)</mat-hint>
+		</mat-form-field>
+	</mat-dialog-content>
+	<mat-dialog-actions align="end">
+		<button type="submit" mat-flat-button color="primary" [disabled]="form.invalid" (click)="onSubmit()">
+			{{ isEdit ? "Update" : "Create" }}
+		</button>
+		<button type="button" mat-flat-button color="warn" (click)="onCancel()">Cancel</button>
+	</mat-dialog-actions>
+</form>

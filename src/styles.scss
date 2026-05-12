@@ -18,8 +18,14 @@ body {
 /* Theme classes */
 .light-theme {
 	@include mat.all-component-themes(light.$light-theme);
+	@include mat.button-density(0);
+	// @include mat.form-field-density(-2);
+	// @include mat.table-density(-2);
 }
 
 .dark-theme {
 	@include mat.all-component-themes(dark.$dark-theme);
+	@include mat.button-density(0);
+	// @include mat.form-field-density(-2);
+	// @include mat.table-density(-2);
 }

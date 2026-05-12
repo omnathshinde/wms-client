@@ -4,6 +4,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { ToastrService } from "ngx-toastr";
 
 import { RoleService } from "@app/modules/services/role.service";
+import { SiteService } from "@app/modules/services/site.service";
 import { UserService } from "@app/modules/services/user.service";
 
 export abstract class UiComponent {
@@ -14,4 +15,5 @@ export abstract class UiComponent {
 	// services and other common dependencies can be injected here and will be available to all components that extend UiComponent
 	protected readonly userService = inject(UserService);
 	protected readonly roleService = inject(RoleService);
+	protected readonly siteService = inject(SiteService);
 }

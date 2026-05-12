@@ -9,5 +9,9 @@ export const MainRoutes: Routes = [
 		path: "user",
 		loadComponent: () => import("src/app/modules/main/user/user").then((m) => m.User),
 	},
+	{
+		path: "site",
+		loadComponent: () => import("src/app/modules/main/site/site").then((m) => m.Site),
+	},
 	{ path: "**", redirectTo: "/", pathMatch: "full" },
 ];
