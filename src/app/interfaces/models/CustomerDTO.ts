@@ -1,0 +1,11 @@
+import { BaseDTO } from "src/app/interfaces/common/BaseDTO";
+
+import { SiteDTO } from "./SiteDTO";
+
+export interface CustomerDTO extends BaseDTO {
+	id: number;
+	name: string;
+	description?: string;
+	siteId?: number;
+	site?: SiteDTO;
+}
