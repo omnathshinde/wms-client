@@ -1,14 +1,21 @@
 <mat-toolbar color="primary">
-	<mat-icon class="mr-2">warehouse</mat-icon>
-	<span>{{ isEdit ? "Update Site Details" : "Enter Site Details" }}</span>
+	<mat-icon class="mr-2">grid_view</mat-icon>
+	<span>{{ isEdit ? "Update Zone Details" : "Create Zone Details" }}</span>
 </mat-toolbar>
 
 <form [formGroup]="form">
 	<mat-dialog-content>
 		<mat-form-field appearance="outline" class="w-full">
 			<mat-label>Site Name</mat-label>
-			<input matInput formControlName="name" placeholder="Enter site name" />
-			<mat-hint>Only letters allowed (min 3 characters)</mat-hint>
+			<mat-select formControlName="siteId">
+				@for (site of sites; track site.id) {
+					<mat-option [value]="site.id"> {{ site.name }}</mat-option>
+				}
+			</mat-select>
+		</mat-form-field>
+		<mat-form-field appearance="outline" class="w-full">
+			<mat-label>Zone Name</mat-label>
+			<input matInput formControlName="name" placeholder="Enter zone name" />
 		</mat-form-field>
 	</mat-dialog-content>
 	<mat-dialog-actions align="end">

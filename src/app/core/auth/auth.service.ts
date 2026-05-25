@@ -14,6 +14,7 @@ export interface AuthUser {
 	role?: string;
 	roleId: string;
 	siteId: string | null;
+	site: string | "" | null;
 }
 
 export interface AuthResponse {

@@ -14,6 +14,18 @@ export const MainRoutes: Routes = [
 		loadComponent: () => import("src/app/modules/main/site/site").then((m) => m.Site),
 	},
 	{
+		path: "zone",
+		loadComponent: () => import("src/app/modules/main/zone/zone").then((m) => m.Zone),
+	},
+	{
+		path: "rack",
+		loadComponent: () => import("src/app/modules/main/rack/rack").then((m) => m.Rack),
+	},
+	{
+		path: "shelf",
+		loadComponent: () => import("src/app/modules/main/shelf/shelf").then((m) => m.Shelf),
+	},
+	{
 		path: "material",
 		loadComponent: () => import("src/app/modules/main/material/material").then((m) => m.Material),
 	},

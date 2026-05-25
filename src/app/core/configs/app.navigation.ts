@@ -38,19 +38,19 @@ export const AppNavigation: NavItem[] = [
 			},
 			{
 				title: "Site",
-				icon: "location_city",
+				icon: "warehouse",
 				route: "/masters/site",
 				access: "Site",
 			},
 			{
 				title: "Zone",
-				icon: "map",
+				icon: "grid_view",
 				route: "/masters/zone",
 				access: "Zone",
 			},
 			{
 				title: "Rack",
-				icon: "view_stream",
+				icon: "storage",
 				route: "/masters/rack",
 				access: "Rack",
 			},

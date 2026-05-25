@@ -2,10 +2,10 @@ import { BaseDTO } from "src/app/interfaces/common/BaseDTO";
 import { RoleDTO } from "src/app/interfaces/models/RoleDTO";
 
 export interface UserDTO extends BaseDTO {
-	id: number;
+	id: number | string;
 	name: string;
 	username: string;
-	roleId: number;
+	roleid: number | string;
 	employeeId?: string;
 	role?: RoleDTO;
 }
