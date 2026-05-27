@@ -1,0 +1,17 @@
+.table-wrapper {
+	width: 100%;
+	overflow: auto;
+	display: flex;
+	flex-direction: column;
+}
+
+table {
+	width: 100%;
+	overflow-x: auto;
+	border-collapse: collapse;
+}
+
+.select-cell,
+.action-cell {
+	text-align: center;
+}

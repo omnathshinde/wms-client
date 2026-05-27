@@ -1,10 +1,8 @@
-import { HttpClient } from "@angular/common/http";
 import { Component, inject } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
 import { ToastrService } from "ngx-toastr";
 
-import { API_URL } from "src/app/app";
 import { AppComponent } from "src/app/core/configs/app.component";
 import { AppModule } from "src/app/core/configs/app.module";
 import { RoleDTO } from "src/app/interfaces/models/RoleDTO";
@@ -18,54 +16,76 @@ import { RoleService } from "src/app/modules/services/role.service";
 	styleUrl: "./role.scss",
 })
 export class Role {
-	private roleService = inject(RoleService);
-	private readonly http = inject(HttpClient);
+	private readonly roleService = inject(RoleService);
 	private readonly toastr = inject(ToastrService);
-	private readonly apiUrl = inject(API_URL);
 	private readonly fb = inject(FormBuilder);
 	private readonly dialog = inject(MatDialog);
 
-	/** Table Inputs */
-	roleApiUrl = "role"; // relative path
+	pageTitle = "Role Details";
+	pageHeader = [{ label: "Masters" }, { label: "Role Details", route: "/masters/role" }];
+
+	apiUrl = "role";
 	displayedColumns = [
-		{ label: "ID", accessor: "id" as const },
 		{ label: "Role Name", accessor: "name" as const },
-		{ label: "Description", accessor: "description" as const },
 		{ label: "Created At", accessor: "createdAt" as const, date: true },
+		{ label: "Created By", accessor: "createdBy" as const },
 	];
+	get actionButtons() {
+		if (this.searchForm.get("status")?.value) {
+			return [{ icon: "settings_backup_restore", type: "restore", tooltip: "Reactivate Role" }];
+		}
+		return [
+			{
+				icon: "security",
+				type: "access",
+				tooltip: "Manage Access",
+				disabled: (row: RoleDTO) => row?.name === "admin",
+			},
+			{ icon: "edit", type: "edit", tooltip: "Edit Role", disabled: (row: RoleDTO) => row?.name === "admin" },
+			{
+				icon: "delete",
+				type: "delete",
+				tooltip: "Delete Role",
+				color: "warn",
+				disabled: (row: RoleDTO) => row?.name === "admin",
+			},
+		];
+	}
 
-	actionButtons = [
-		{ icon: "visibility", type: "view", tooltip: "View Details" },
-		{ icon: "edit", type: "edit", tooltip: "Edit Role" },
-		{ icon: "delete", type: "delete", tooltip: "Delete Role" },
-	];
-
-	/** Table filters */
 	filterFields: Partial<Record<keyof RoleDTO, string | number | boolean>> = {
 		status: 1,
 		name: "",
 	};
 
-	/** Store selected rows here */
-	selected: RoleDTO[] = [];
-
-	searchForm!: FormGroup;
-	constructor() {
-		this.searchForm = this.fb.group({
-			name: [""],
-		});
-	}
+	searchForm: FormGroup = this.fb.group({
+		name: [""],
+		status: [0],
+	});
 
 	onSearch(): void {
-		const nameValue = this.searchForm.get("name")?.value?.trim() || "";
-		this.filterFields = { ...this.filterFields, name: nameValue };
-		console.log(this.filterFields);
+		const formValue = this.searchForm.value;
+
+		this.filterFields = {
+			name: formValue.name?.trim() || "",
+			status: formValue.status ? 0 : 1,
+		};
 	}
 
-	onClear(): void {
-		this.searchForm.reset();
-		this.filterFields = {};
-		this.selected = [];
+	onImport(): void {
+		this.toastr.warning("Import functionality coming soon!");
+	}
+
+	onExport(): void {
+		this.toastr.warning("Export functionality coming soon!");
+	}
+
+	onReset(): void {
+		this.searchForm.reset({
+			name: "",
+			status: 1,
+		});
+
+		this.filterFields = { status: 1, name: "" };
 	}
 
 	onAction(event: { type: string; data: RoleDTO }): void {
@@ -76,40 +96,15 @@ export class Role {
 			case "delete":
 				this.handleAction("delete", event.data);
 				break;
+			case "restore":
+				this.handleAction("restore", event.data);
+				break;
+			case "access":
+				this.toastr.warning(`Managing access functionality for role coming soon!`);
+				break;
+			default:
+				this.toastr.error("Unknown action");
 		}
-	}
-
-	/** Handle pagination */
-	onPageChange(pageIndex: number): void {
-		console.log("Page changed to", pageIndex);
-	}
-
-	/** ✅ Handle selection */
-	onSelectedRows(rows: RoleDTO[]): void {
-		this.selected = rows; // ✅ Save the emitted rows
-		console.log("Selected rows:", rows);
-	}
-
-	/** API call for delete */
-	private deleteRole(id: number): void {
-		const url = `${this.apiUrl}/roles/${id}`;
-		this.http.delete(url).subscribe({
-			next: () => {
-				this.toastr.success("Role deleted successfully");
-			},
-			error: () => {
-				this.toastr.error("Error deleting role");
-			},
-		});
-	}
-
-	/** ✅ Log selected rows when button is clicked */
-	logSelection(): void {
-		if (this.selected.length === 0) {
-			this.toastr.warning("No rows selected");
-			return;
-		}
-		console.log("Selected Roles:", this.selected);
 	}
 
 	handleAction(action: string, data?: RoleDTO): void {
@@ -121,9 +116,6 @@ export class Role {
 			case "delete":
 			case "restore":
 				this.onDeleteRestore(action, data!);
-				break;
-			case "view":
-				this.toastr.info(`Viewing role: ${data?.name}`);
 				break;
 			default:
 				this.toastr.error("Unknown action");
@@ -140,20 +132,27 @@ export class Role {
 			.subscribe((result) => {
 				if (result) {
 					this.toastr.success(`Role ${action === "create" ? "created" : "updated"} successfully`);
+					this.onSearch();
 				}
 			});
 	}
 
 	onDeleteRestore(type: "delete" | "restore", data: RoleDTO): void {
-		if (type === "delete") {
-			this.roleService.delete(data.id).subscribe(() => {
-				this.toastr.success("Role deleted successfully");
-			});
-		}
-		if (type === "restore") {
-			this.roleService.delete(data.id).subscribe(() => {
-				this.toastr.success("Role deleted successfully");
-			});
-		}
+		const actionMap = {
+			delete: {
+				call: () => this.roleService.delete(data.id),
+				message: "Role deactivated successfully",
+			},
+			restore: {
+				call: () => this.roleService.restore(data.id),
+				message: "Role restored successfully",
+			},
+		};
+		const action = actionMap[type];
+		if (!action) return;
+		action.call().subscribe(() => {
+			this.toastr.success(action.message);
+			this.onSearch();
+		});
 	}
 }

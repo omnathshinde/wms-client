@@ -3,10 +3,14 @@
 {
 	"compileOnSave": false,
 	"compilerOptions": {
-		"baseUrl": "./",
+		"baseUrl": ".",
 		"paths": {
-			"src/*": ["src/*"]
+			"src/*": ["src/*"],
+			"@app/*": ["src/app/*"],
+			"@core/*": ["src/app/core/*"]
 		},
+		"moduleResolution": "bundler",
+		"lib": ["ES2022", "DOM"],
 		"strict": true,
 		"noImplicitOverride": true,
 		"noPropertyAccessFromIndexSignature": true,
@@ -17,7 +21,7 @@
 		"experimentalDecorators": true,
 		"importHelpers": true,
 		"target": "ES2022",
-		"module": "preserve"
+		"module": "ESNext"
 	},
 	"angularCompilerOptions": {
 		"enableI18nLegacyMessageIdFormat": false,

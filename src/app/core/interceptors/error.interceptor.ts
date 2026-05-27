@@ -3,7 +3,7 @@ import { inject } from "@angular/core";
 import { ToastrService } from "ngx-toastr";
 import { catchError, throwError } from "rxjs";
 
-import { StateService } from "src/app/core/shared/state.service";
+import { StateService } from "@core/services/state.service";
 
 export const ErrorInterceptor: HttpInterceptorFn = (req, next) => {
 	const state = inject(StateService);

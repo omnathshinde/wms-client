@@ -31,30 +31,12 @@
 								"output": "/assets/"
 							}
 						],
-						"styles": ["src/styles.scss", "src/theme/variables.scss", "node_modules/ngx-toastr/toastr.css"]
+						"styles": ["src/styles.scss", "node_modules/ngx-toastr/toastr.css"],
+						"stylePreprocessorOptions": {
+							"includePaths": ["src/scss"]
+						}
 					},
 					"configurations": {
-						"production": {
-							"budgets": [
-								{
-									"type": "initial",
-									"maximumWarning": "500kB",
-									"maximumError": "1MB"
-								},
-								{
-									"type": "anyComponentStyle",
-									"maximumWarning": "4kB",
-									"maximumError": "8kB"
-								}
-							],
-							"fileReplacements": [
-								{
-									"replace": "src/environments/environment.ts",
-									"with": "src/environments/environment.production.ts"
-								}
-							],
-							"outputHashing": "all"
-						},
 						"testing": {
 							"budgets": [
 								{
@@ -79,6 +61,48 @@
 							"namedChunks": true,
 							"extractLicenses": false
 						},
+						"staging": {
+							"budgets": [
+								{
+									"type": "initial",
+									"maximumWarning": "500kB",
+									"maximumError": "1MB"
+								},
+								{
+									"type": "anyComponentStyle",
+									"maximumWarning": "4kB",
+									"maximumError": "8kB"
+								}
+							],
+							"fileReplacements": [
+								{
+									"replace": "src/environments/environment.ts",
+									"with": "src/environments/environment.staging.ts"
+								}
+							],
+							"outputHashing": "all"
+						},
+						"production": {
+							"budgets": [
+								{
+									"type": "initial",
+									"maximumWarning": "500kB",
+									"maximumError": "1MB"
+								},
+								{
+									"type": "anyComponentStyle",
+									"maximumWarning": "4kB",
+									"maximumError": "8kB"
+								}
+							],
+							"fileReplacements": [
+								{
+									"replace": "src/environments/environment.ts",
+									"with": "src/environments/environment.production.ts"
+								}
+							],
+							"outputHashing": "all"
+						},
 						"development": {
 							"optimization": false,
 							"extractLicenses": false,
@@ -90,11 +114,14 @@
 				"serve": {
 					"builder": "@angular/build:dev-server",
 					"configurations": {
-						"production": {
-							"buildTarget": "client:build:production"
-						},
 						"testing": {
 							"buildTarget": "client:build:testing"
+						},
+						"staging": {
+							"buildTarget": "client:build:staging"
+						},
+						"production": {
+							"buildTarget": "client:build:production"
 						},
 						"development": {
 							"buildTarget": "client:build:development"
@@ -121,7 +148,10 @@
 								"output": "/assets/"
 							}
 						],
-						"styles": ["src/styles.scss", "src/theme/variables.scss", "node_modules/ngx-toastr/toastr.css"]
+						"styles": ["src/styles.scss", "node_modules/ngx-toastr/toastr.css"],
+						"stylePreprocessorOptions": {
+							"includePaths": ["src/scss"]
+						}
 					}
 				},
 				"lint": {

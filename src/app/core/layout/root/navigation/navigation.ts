@@ -1,30 +1,69 @@
-import { Component, signal } from "@angular/core";
+import { Component, inject, signal } from "@angular/core";
+import { NavigationEnd, Router } from "@angular/router";
+import { filter } from "rxjs";
 
 import { AppModule } from "src/app/core/configs/app.module";
 import { AppNavigation } from "src/app/core/configs/app.navigation";
 import { NavItem } from "src/app/interfaces/common/NavItem";
+import { ListItemFocusable } from "src/app/shared/directives/list-item-focusable.directive";
+import { NavActiveDirective } from "src/app/shared/directives/nav-active.directive";
+import { NavListKeyManager } from "src/app/shared/directives/nav-list-key-manager.directive";
 
 @Component({
 	selector: "app-navigation",
-	imports: [AppModule],
+	imports: [AppModule, ListItemFocusable, NavListKeyManager, NavActiveDirective],
 	templateUrl: "./navigation.html",
 	styleUrl: "./navigation.scss",
 })
 export class Navigation {
+	private router = inject(Router);
 	navItems: NavItem[] = AppNavigation;
+	openMap = signal<Record<string, boolean>>({});
+	private parentMap = new Map<string, string>();
 
-	// Track dropdown state
-	openStates = signal<Record<string, boolean>>({});
+	constructor() {
+		this.buildParentMap();
+		this.router.events.pipe(filter((e) => e instanceof NavigationEnd)).subscribe(() => this.syncMenuWithRoute());
+		this.syncMenuWithRoute();
+	}
 
-	toggle(item: NavItem) {
-		if (!item.children) return;
-		this.openStates.update((s) => ({
-			...s,
-			[item.title]: !s[item.title],
+	private buildParentMap(): void {
+		this.navItems.forEach((item) => {
+			item.children?.forEach((child) => {
+				if (child.route) {
+					this.parentMap.set(child.route, item.title);
+				}
+			});
+		});
+	}
+
+	toggle(id: string): void {
+		this.openMap.update((state) => ({
+			...state,
+			[id]: !state[id],
 		}));
 	}
 
-	isOpen(item: NavItem) {
-		return this.openStates()[item.title];
+	isOpen(item: NavItem): boolean {
+		return !!this.openMap()[item.title];
+	}
+
+	isParentActive(item: NavItem): boolean {
+		return item.children?.some((child) => this.router.url.startsWith(child.route || "")) ?? false;
+	}
+
+	private syncMenuWithRoute(): void {
+		const url = this.router.url;
+		const newState: Record<string, boolean> = {};
+		for (const [route, parentId] of this.parentMap.entries()) {
+			if (url.startsWith(route)) {
+				newState[parentId] = true;
+			}
+		}
+		this.openMap.set(newState);
+	}
+
+	trackByKey(index: number, item: NavItem): string {
+		return item.title;
 	}
 }

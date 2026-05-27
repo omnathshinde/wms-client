@@ -1,0 +1,14 @@
+@use "@angular/material" as mat;
+@use "base/palettes" as palettes;
+
+$dark-theme: mat.m2-define-dark-theme(
+	(
+		color: (
+			primary: palettes.$primary-palette,
+			accent: palettes.$accent-palette,
+			warn: palettes.$warn-palette,
+		),
+		typography: mat.m2-define-typography-config(),
+		density: -2,
+	)
+);

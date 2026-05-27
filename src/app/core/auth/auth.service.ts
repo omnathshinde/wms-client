@@ -14,6 +14,7 @@ export interface AuthUser {
 	role?: string;
 	roleId: string;
 	siteId: string | null;
+	site: string | "" | null;
 }
 
 export interface AuthResponse {
@@ -67,7 +68,7 @@ export class AuthService {
 		sessionStorage.removeItem("authUser");
 		sessionStorage.removeItem("authAccess");
 
-		this.router.navigateByUrl("/login");
+		this.router.navigate(["/login"], { replaceUrl: true });
 		this.toastr.info("You have been logged out");
 	}
 

@@ -1,0 +1,56 @@
+<mat-toolbar color="primary">
+	<mat-icon class="mr-2">shelves</mat-icon>
+	<span>{{ isEdit ? "Update Shelf Details" : "Enter Shelf Details" }}</span>
+</mat-toolbar>
+
+<form [formGroup]="form">
+	<mat-dialog-content>
+		@if (form.get("siteId")?.disabled) {
+			<mat-form-field appearance="outline" class="w-full">
+				<mat-label>Site</mat-label>
+				<input matInput formControlName="site" placeholder="Select site" readonly />
+			</mat-form-field>
+		} @else {
+			<mat-form-field appearance="outline" class="w-full">
+				<mat-label>Site</mat-label>
+				<mat-select formControlName="siteId" (selectionChange)="onSiteChange($event.value)">
+					@for (site of sites; track site.id) {
+						<mat-option [value]="site.id">{{ site.name }} </mat-option>
+					}
+				</mat-select>
+			</mat-form-field>
+		}
+		<mat-form-field appearance="outline" class="w-full">
+			<mat-label>Zone</mat-label>
+			<mat-select
+				formControlName="zoneId"
+				(selectionChange)="onZoneChange($event.value)"
+				[disabled]="zones.length === 0"
+			>
+				@for (zone of zones; track zone.id) {
+					<mat-option [value]="zone.id">
+						{{ zone.name }}
+					</mat-option>
+				}
+			</mat-select>
+		</mat-form-field>
+		<mat-form-field appearance="outline" class="w-full">
+			<mat-label>Rack</mat-label>
+			<mat-select formControlName="rackId" [disabled]="racks.length === 0">
+				@for (rack of racks; track rack.id) {
+					<mat-option [value]="rack.id"> {{ rack.name }}</mat-option>
+				}
+			</mat-select>
+		</mat-form-field>
+		<mat-form-field appearance="outline" class="w-full">
+			<mat-label>Shelf Name</mat-label>
+			<input matInput formControlName="name" placeholder="Enter shelf name" />
+		</mat-form-field>
+	</mat-dialog-content>
+	<mat-dialog-actions align="end">
+		<button type="submit" mat-flat-button color="primary" [disabled]="form.invalid" (click)="onSubmit()">
+			{{ isEdit ? "Update" : "Create" }}
+		</button>
+		<button type="button" mat-flat-button color="warn" (click)="onCancel()">Cancel</button>
+	</mat-dialog-actions>
+</form>

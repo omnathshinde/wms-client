@@ -1,17 +1,19 @@
-<h2 mat-dialog-title color="primary">
-	{{ isEdit ? "Update Role" : "Create Role" }}
-</h2>
+<mat-toolbar color="primary">
+	<mat-icon class="mr-2">badge</mat-icon>
+	<span>{{ isEdit ? "Update Role Details" : "Enter Role Details" }}</span>
+</mat-toolbar>
+
 <form [formGroup]="form">
 	<mat-dialog-content>
-		<mat-form-field appearance="outline" class="w-100">
+		<mat-form-field appearance="outline" class="w-full">
 			<mat-label>Role Name</mat-label>
-			<input matInput formControlName="name" placeholder="Enter role name" />
+			<input matInput formControlName="name" placeholder="Enter a role" />
 		</mat-form-field>
 	</mat-dialog-content>
 	<mat-dialog-actions align="end">
-		<button type="button" mat-stroked-button color="warn" (click)="onCancel()">Cancel</button>
 		<button type="submit" mat-flat-button color="primary" [disabled]="form.invalid" (click)="onSubmit()">
 			{{ isEdit ? "Update" : "Create" }}
 		</button>
+		<button type="button" mat-flat-button color="warn" (click)="onCancel()">Cancel</button>
 	</mat-dialog-actions>
 </form>

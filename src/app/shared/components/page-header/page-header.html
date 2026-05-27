@@ -1,37 +1,25 @@
-<div class="page-header">
-	<div class="title-section">
-		<button type="button" matIconButton routerLink="" aria-label="Example icon-button with menu icon">
-			<mat-icon>home</mat-icon>
-		</button>
+<mat-card class="mb-2 p-2 rounded-lg">
+	<mat-card-title>
+		{{ breadcrumbs[breadcrumbs.length - 1].label }}
+	</mat-card-title>
 
-		<div class="breadcrumb">
-			<mat-icon>chevron_right</mat-icon>
-		</div>
-		@if (breadcrumb.path.length > 1) {
-			<nav>
-				@for (crumb of breadcrumb.path; track crumb) {
-					<span>{{ crumb }}</span>
-					@if (!$last) {
-						<mat-icon>chevron_right</mat-icon>
-					}
+	<mat-card-subtitle>
+		<div class="flex items-center gap-1 flex-wrap text-sm">
+			@for (item of breadcrumbs; track $index) {
+				@if (item.route) {
+					<a [routerLink]="item.route" class="breadcrumb-link">
+						{{ item.label }}
+					</a>
+				} @else {
+					<span class="breadcrumb-current">
+						{{ item.label }}
+					</span>
 				}
-			</nav>
-		}
-		<!-- <span class="sep">/</span> -->
-	</div>
-	<!-- <span class="title">{{ title }}</span>
-		@if (breadcrumb.path.length > 1) {
-		<nav class="breadcrumb">
-			@for (crumb of breadcrumb.path; track crumb) {
-			<span class="crumb">{{ crumb }}</span>
-			@if (!$last) {
-			<mat-icon class="crumb-sep">chevron_right</mat-icon>
-			}
-			}
-		</nav>
-		} -->
 
-	<div class="actions">
-		<ng-content></ng-content>
-	</div>
-</div>
+				@if ($index < breadcrumbs.length - 1) {
+					<mat-icon class="breadcrumb-separator">chevron_right</mat-icon>
+				}
+			}
+		</div>
+	</mat-card-subtitle>
+</mat-card>

@@ -1,45 +1,65 @@
-/* Sidebar Nav Container */
-.sidebar-nav {
-	padding: 0.5rem 0;
-	height: 100%;
-	overflow-y: auto;
-	background: var(--mat-sys-surface);
+:host {
+	display: block;
+	overflow-x: hidden;
+	scrollbar-gutter: stable;
 }
 
-/* Main nav items */
-.nav-item {
-	border-radius: 8px;
+// Submenu animation
+.submenu {
+	overflow: hidden;
+	max-height: 0;
+	opacity: 0;
 	transition:
-		background 200ms ease,
-		color 200ms ease;
+		max-height 200ms ease,
+		opacity 120ms ease;
+
+	&.open {
+		max-height: 500px;
+		opacity: 1;
+	}
 }
 
-/* Hover effect */
-.nav-item:hover {
-	background: var(--mat-sys-primary-container-hover);
-	cursor: pointer;
+// Arrow
+.arrow {
+	transition: transform 0.18s ease;
+
+	&.open {
+		transform: rotate(180deg);
+	}
 }
 
-/* Active highlight */
-.nav-item.active {
-	background: var(--mat-sys-primary-container);
-	color: var(--mat-sys-on-primary-container);
-	font-weight: 600;
+.mat-mdc-list-item {
+	padding: 0.1rem;
+	margin: 0.1rem;
+
+	&:hover {
+		background-color: color-mix(in srgb, var(--primary-color) 15%, transparent);
+		.mat-icon {
+			color: var(--primary-color);
+		}
+		[matListItemTitle] {
+			color: var(--primary-color);
+		}
+	}
 }
 
-.nav-item.active mat-icon {
-	color: var(--mat-sys-on-primary-container);
+.active-parent {
+	color: var(--primary-color);
+
+	.mat-icon {
+		color: var(--primary-color);
+	}
+	[matListItemTitle] {
+		color: var(--primary-color);
+	}
 }
 
-.sub-item {
-	transition: all 3s ease;
-}
-/* Scrollbar */
-:host ::-webkit-scrollbar {
-	width: 4px;
-}
-
-:host ::-webkit-scrollbar-thumb {
-	background: var(--mat-sys-outline-variant);
-	border-radius: 8px;
+.full-active {
+	background-color: color-mix(in srgb, var(--primary-color) 15%, transparent);
+	.mat-icon {
+		color: var(--primary-color);
+	}
+	[matListItemTitle] {
+		color: var(--primary-color);
+	}
 }

@@ -1,56 +1,58 @@
 <div class="login-wrapper">
 	<mat-card class="login-card">
-		<mat-card-title class="title">Welcome Back</mat-card-title>
-		<mat-card-subtitle class="subtitle">Please login to continue</mat-card-subtitle>
+		<mat-card-header class="header">
+			<mat-card-title>Welcome Back</mat-card-title>
+			<mat-card-subtitle>Please login to continue</mat-card-subtitle>
+		</mat-card-header>
+		<mat-card-content>
+			<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+				<mat-form-field appearance="outline" class="full-width">
+					<mat-label>Username</mat-label>
+					<mat-icon matSuffix>person</mat-icon>
+					<input matInput placeholder="Enter a username" formControlName="username" />
+					@if (username!.hasError("required")) {
+						<mat-error> Username is required </mat-error>
+					}
+				</mat-form-field>
+				<mat-form-field appearance="outline" class="full-width">
+					<mat-label>Password</mat-label>
+					<input
+						matInput
+						[type]="hidePassword() ? 'password' : 'text'"
+						placeholder="Enter a password"
+						formControlName="password"
+					/>
+					<button mat-icon-button matSuffix type="button" (click)="togglePasswordVisibility()" tabindex="-1">
+						<mat-icon>{{ hidePassword() ? "visibility_off" : "visibility" }}</mat-icon>
+					</button>
+					@if (password!.hasError("required")) {
+						<mat-error> Username is required </mat-error>
+					}
+					@if (password!.hasError("minlength")) {
+						<mat-error> Password is too short </mat-error>
+					}
+				</mat-form-field>
 
-		<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
-			<!-- Username -->
-			<mat-form-field appearance="outline" class="full-width">
-				<mat-label>Username</mat-label>
-				<mat-icon matSuffix>person</mat-icon>
-				<input matInput placeholder="Enter username" formControlName="username" appAutoFocus />
-				@if (username!.hasError("required")) {
-					<mat-error> Username is required </mat-error>
-				}
-			</mat-form-field>
-			<!-- Password -->
-			<mat-form-field appearance="outline" class="full-width">
-				<mat-label>Password</mat-label>
-				<input
-					matInput
-					[type]="hidePassword() ? 'password' : 'text'"
-					placeholder="Enter password"
-					formControlName="password"
-				/>
-				<button mat-icon-button matSuffix type="button" (click)="togglePasswordVisibility()" tabindex="-1">
-					<mat-icon>{{ hidePassword() ? "visibility_off" : "visibility" }}</mat-icon>
+				<div class="options">
+					<mat-checkbox color="primary" formControlName="remember"> Remember me </mat-checkbox>
+					<button class="forgot" (click)="onForgotPassword()">Forgot Password?</button>
+				</div>
+				<button
+					mat-flat-button
+					type="submit"
+					color="primary"
+					class="login-btn"
+					[disabled]="loginForm.invalid || state().loading"
+				>
+					@if (state().loading) {
+						<mat-progress-spinner diameter="22" mode="indeterminate"></mat-progress-spinner>
+					}
+					@if (!state().loading) {
+						<span>Login</span>
+					}
 				</button>
-				@if (password!.hasError("required")) {
-					<mat-error> Username is required </mat-error>
-				}
-				<mat-error *ngIf=""> Password is required </mat-error>
-			</mat-form-field>
-
-			<!-- Submit Button -->
-			<button
-				mat-flat-button
-				type="submit"
-				color="primary"
-				class="full-width login-btn"
-				[disabled]="loginForm.invalid || state().loading"
-			>
-				@if (state().loading) {
-					<mat-progress-spinner diameter="22" mode="indeterminate"></mat-progress-spinner>
-				}
-				@if (!state().loading) {
-					<span>Login</span>
-				}
-			</button>
-		</form>
-
-		<!-- Forgot Password -->
-		<div class="footer-text">
-			<button type="button" mat-button (click)="onForgotPassword()">Forgot Password?</button>
-		</div>
+			</form>
+			<div class="footer">© 2026 Warehouse Management System</div>
+		</mat-card-content>
 	</mat-card>
 </div>

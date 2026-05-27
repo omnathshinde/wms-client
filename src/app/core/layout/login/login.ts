@@ -1,6 +1,6 @@
 import { Component, inject, signal } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 
 import { AuthService } from "src/app/core/auth/auth.service";
@@ -18,13 +18,14 @@ interface LoginPayload {
 	templateUrl: "./login.html",
 	styleUrl: "./login.scss",
 })
-export class LoginPage {
+export class Login {
 	hidePassword = signal(true);
 
 	private fb = inject(FormBuilder);
 	private toastr = inject(ToastrService);
 	private auth = inject(AuthService);
 	private router = inject(Router);
+	private route = inject(ActivatedRoute);
 
 	readonly state = signal<ApiState<unknown>>({
 		data: null,
@@ -35,6 +36,7 @@ export class LoginPage {
 	loginForm = this.fb.nonNullable.group({
 		username: ["", [Validators.required]],
 		password: ["", [Validators.required]],
+		remember: [false],
 	});
 
 	get username() {
@@ -59,7 +61,11 @@ export class LoginPage {
 		this.auth.login(payload).subscribe({
 			next: (res) => {
 				this.state.set({ data: res, loading: false, error: null });
-				this.router.navigateByUrl("/");
+				let returnUrl = this.route.snapshot.queryParamMap.get("returnUrl") || "dashboard";
+				if (returnUrl.includes("/login")) {
+					returnUrl = "dashboard";
+				}
+				this.router.navigate([returnUrl], { replaceUrl: true });
 			},
 			error: (err) => {
 				this.state.set({ data: null, loading: false, error: err });

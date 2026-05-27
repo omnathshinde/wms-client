@@ -1,6 +1,7 @@
 # WMS Client 🚀
 
 > **Note:** Install Angular CLI globally first:
+> 2
 >
 > ```bash
 > npm install -g @angular/cli

@@ -1,0 +1,27 @@
+<mat-toolbar color="primary">
+	<mat-icon class="mr-2">grid_view</mat-icon>
+	<span>{{ isEdit ? "Update Zone Details" : "Create Zone Details" }}</span>
+</mat-toolbar>
+
+<form [formGroup]="form">
+	<mat-dialog-content>
+		<mat-form-field appearance="outline" class="w-full">
+			<mat-label>Site Name</mat-label>
+			<mat-select formControlName="siteId">
+				@for (site of sites; track site.id) {
+					<mat-option [value]="site.id"> {{ site.name }}</mat-option>
+				}
+			</mat-select>
+		</mat-form-field>
+		<mat-form-field appearance="outline" class="w-full">
+			<mat-label>Zone Name</mat-label>
+			<input matInput formControlName="name" placeholder="Enter zone name" />
+		</mat-form-field>
+	</mat-dialog-content>
+	<mat-dialog-actions align="end">
+		<button type="submit" mat-flat-button color="primary" [disabled]="form.invalid" (click)="onSubmit()">
+			{{ isEdit ? "Update" : "Create" }}
+		</button>
+		<button type="button" mat-flat-button color="warn" (click)="onCancel()">Cancel</button>
+	</mat-dialog-actions>
+</form>

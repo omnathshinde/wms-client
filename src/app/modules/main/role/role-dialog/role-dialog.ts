@@ -25,7 +25,7 @@ export class RoleDialog implements OnInit {
 	ngOnInit(): void {
 		this.isEdit = !!this.data;
 		this.form = this.fb.group({
-			name: [this.data?.name || "", [Validators.required, Validators.minLength(3)]],
+			name: [this.data?.name || "", [Validators.required]],
 		});
 	}
 

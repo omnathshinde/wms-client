@@ -1,11 +1,15 @@
+// @ts-check
 import eslint from "@eslint/js";
-import * as tseslint from "typescript-eslint";
-import * as angular from "angular-eslint";
+import { defineConfig } from "eslint/config";
+import tseslint from "typescript-eslint";
+import angular from "angular-eslint";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
 import eslintPluginImport from "eslint-plugin-import";
 import pluginPrettier from "eslint-plugin-prettier";
+import prettierConfig from "eslint-config-prettier";
 
-export default tseslint.config(
+export default defineConfig([
+	prettierConfig,
 	{
 		files: ["**/*.ts"],
 		plugins: {
@@ -15,9 +19,9 @@ export default tseslint.config(
 		},
 		extends: [
 			eslint.configs.recommended,
-			...tseslint.configs.recommended,
-			...tseslint.configs.stylistic,
-			...angular.configs.tsRecommended,
+			tseslint.configs.recommended,
+			tseslint.configs.stylistic,
+			angular.configs.tsRecommended,
 		],
 		processor: angular.processInlineTemplates,
 		rules: {
@@ -25,13 +29,16 @@ export default tseslint.config(
 			"simple-import-sort/imports": [
 				"error",
 				{
-					groups: [["^node:"], ["^@?\\w"], ["^src/", "^@app", "^@core", "^@shared"], ["^\\."], ["^\\u0000"]],
+					groups: [["^node:"], ["^@?\\w"], ["^src/", "^@app", "^@core"], ["^\\."], ["^\\u0000"]],
 				},
 			],
 			"simple-import-sort/exports": "error",
+
 			"import/first": "error",
-			"import/newline-after-import": "error",
 			"import/no-duplicates": "error",
+			"import/newline-after-import": "error",
+			"import/no-relative-parent-imports": "error",
+
 			"no-restricted-imports": [
 				"error",
 				{
@@ -43,7 +50,9 @@ export default tseslint.config(
 					],
 				},
 			],
-			"import/no-relative-parent-imports": "error",
+
+			"@typescript-eslint/no-unused-vars": "error",
+			"@typescript-eslint/no-explicit-any": "error",
 			"@angular-eslint/directive-selector": [
 				"error",
 				{
@@ -64,7 +73,7 @@ export default tseslint.config(
 	},
 	{
 		files: ["**/*.html"],
-		extends: [...angular.configs.templateRecommended, ...angular.configs.templateAccessibility],
+		extends: [angular.configs.templateRecommended, angular.configs.templateAccessibility],
 		rules: {},
 	},
-);
+]);

@@ -1,4 +1,6 @@
+import { AppContainer } from "src/app/shared/components/app-container/app-container";
+import { HeaderContainer } from "src/app/shared/components/header-container/header-container";
 import { PageHeader } from "src/app/shared/components/page-header/page-header";
-import { Table0 } from "src/app/shared/components/table-design/table-0/table-0";
+import { DataTable } from "src/app/shared/components/table-design/data-table/data-table";
 
-export const AppComponent = [PageHeader, Table0];
+export const AppComponent = [PageHeader, AppContainer, DataTable, HeaderContainer];

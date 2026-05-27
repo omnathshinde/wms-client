@@ -1,5 +1,8 @@
 {
 	"yaml.schemas": {
 		"https://www.schemastore.org/github-workflow.json": "file:///d%3A/git-projects/angular-20/.github/workflows/pre-receive.yml"
+	},
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": "always"
 	}
 }

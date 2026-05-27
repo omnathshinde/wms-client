@@ -1,7 +1,9 @@
-import { Component, EventEmitter, inject, Output } from "@angular/core";
+import { Component, inject } from "@angular/core";
 
-import { AppModule } from "src/app/core/configs/app.module";
-import { ThemeService } from "src/app/core/shared/theme.service";
+import { LayoutService } from "src/app/core/services/layout.service";
+import { AuthService } from "@core/auth/auth.service";
+import { AppModule } from "@core/configs/app.module";
+import { ThemeService } from "@core/services/theme.service";
 
 @Component({
 	selector: "app-header",
@@ -10,6 +12,11 @@ import { ThemeService } from "src/app/core/shared/theme.service";
 	styleUrl: "./header.scss",
 })
 export class Header {
-	theme = inject(ThemeService);
-	@Output() toggleSidebar = new EventEmitter<void>();
+	readonly layout = inject(LayoutService);
+	readonly theme = inject(ThemeService);
+	readonly auth = inject(AuthService);
+
+	logout() {
+		this.auth.logout();
+	}
 }

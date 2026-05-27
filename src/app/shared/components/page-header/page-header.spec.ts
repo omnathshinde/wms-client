@@ -13,7 +13,7 @@ describe("PageHeader", () => {
 
 		fixture = TestBed.createComponent(PageHeader);
 		component = fixture.componentInstance;
-		fixture.detectChanges();
+		await fixture.whenStable();
 	});
 
 	it("should create", () => {

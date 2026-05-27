@@ -1,0 +1,70 @@
+<mat-toolbar color="primary">
+	<mat-icon class="mr-2">person</mat-icon>
+	<span>{{ isEdit ? "Update User Details" : "Enter User Details" }}</span>
+</mat-toolbar>
+
+<form [formGroup]="form">
+	<mat-dialog-content>
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+			<mat-form-field appearance="outline" class="w-full">
+				<mat-label>Employee Name</mat-label>
+				<input matInput formControlName="name" placeholder="Enter employee name" />
+				<mat-hint>Only letters allowed (min 3 characters)</mat-hint>
+			</mat-form-field>
+
+			<mat-form-field appearance="outline" class="w-full">
+				<mat-label>Employee ID</mat-label>
+				<input matInput formControlName="employeeId" placeholder="Enter employee ID" />
+				<mat-hint>Numeric ID (e.g., 1001)</mat-hint>
+			</mat-form-field>
+
+			<mat-form-field appearance="outline" class="w-full">
+				<mat-label>Username</mat-label>
+				<input matInput formControlName="username" placeholder="Enter a username" />
+				<mat-hint>No spaces. Use letters, numbers, or underscore</mat-hint>
+			</mat-form-field>
+
+			<mat-form-field appearance="outline" class="w-full">
+				<mat-label>Password</mat-label>
+				<input
+					matInput
+					[type]="hidePassword() ? 'password' : 'text'"
+					placeholder="Enter a password"
+					formControlName="password"
+				/>
+				<button mat-icon-button matSuffix type="button" (click)="togglePasswordVisibility()" tabindex="-1">
+					<mat-icon>{{ hidePassword() ? "visibility_off" : "visibility" }}</mat-icon>
+				</button>
+				<mat-hint> Must contain at least 6 characters </mat-hint>
+			</mat-form-field>
+
+			<mat-form-field appearance="outline" class="w-full">
+				<mat-label>Role</mat-label>
+				<mat-select formControlName="roleId" placeholder="Select a role">
+					@for (role of roles; track $index) {
+						<mat-option [value]="role.id">{{ role.name }}</mat-option>
+					}
+				</mat-select>
+				<mat-hint>Select appropriate role for the user</mat-hint>
+			</mat-form-field>
+			<mat-form-field appearance="outline" class="w-full">
+				<mat-label>Site</mat-label>
+				<mat-select formControlName="siteId" placeholder="Select a site">
+					@for (site of sites; track $index) {
+						<mat-option [value]="site.id">{{ site.name }}</mat-option>
+					}
+				</mat-select>
+				<mat-hint>Select site for the user</mat-hint>
+			</mat-form-field>
+			@if (form.get("roleId")?.value === 1) {
+				<p class="text-sm">Admin fields are locked. Only password can be changed.</p>
+			}
+		</div>
+	</mat-dialog-content>
+	<mat-dialog-actions align="end">
+		<button type="submit" mat-flat-button color="primary" [disabled]="form.invalid" (click)="onSubmit()">
+			{{ isEdit ? "Update" : "Create" }}
+		</button>
+		<button type="button" mat-flat-button color="warn" (click)="onCancel()">Cancel</button>
+	</mat-dialog-actions>
+</form>

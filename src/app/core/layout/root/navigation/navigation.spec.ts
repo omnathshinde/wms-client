@@ -13,7 +13,7 @@ describe("Navigation", () => {
 
 		fixture = TestBed.createComponent(Navigation);
 		component = fixture.componentInstance;
-		fixture.detectChanges();
+		await fixture.whenStable();
 	});
 
 	it("should create", () => {

@@ -1,19 +1,21 @@
-<mat-drawer-container class="layout-container" [hasBackdrop]="isHandset()">
-	<mat-drawer #drawer class="sidebar" [mode]="isHandset() ? 'over' : 'side'" [opened]="isDesktop() ? true : false">
+<app-header></app-header>
+<mat-sidenav-container class="layout-container">
+	<mat-sidenav
+		class="sidebar"
+		aria-label="Main navigation"
+		[attr.role]="layout.isMobile() ? 'dialog' : 'navigation'"
+		[mode]="layout.isMobile() ? 'over' : 'side'"
+		[opened]="layout.sidebarOpen()"
+	>
 		<app-navigation></app-navigation>
-	</mat-drawer>
+	</mat-sidenav>
 
-	<mat-drawer-content class="main-content">
-		<app-header (toggleSidebar)="toggleSidebar()"></app-header>
-
+	<mat-sidenav-content class="router-content">
+		<router-outlet></router-outlet>
 		@if (loading()) {
 			<div class="loading-overlay">
 				<mat-spinner diameter="60"></mat-spinner>
 			</div>
 		}
-
-		<mat-card class="router-content">
-			<router-outlet></router-outlet>
-		</mat-card>
-	</mat-drawer-content>
-</mat-drawer-container>
+	</mat-sidenav-content>
+</mat-sidenav-container>

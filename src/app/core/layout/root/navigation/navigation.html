@@ -1,42 +1,54 @@
-<mat-nav-list class="sidebar-nav">
-	<!-- Loop main items -->
-	@for (item of navItems; track $index) {
-		@if (item.children) {
-			<mat-list-item class="nav-item" (click)="toggle(item)">
-				<mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
-				<span matListItemTitle>{{ item.title }}</span>
-				<span matListItemMeta>
-					<mat-icon> {{ isOpen(item) ? "expand_less" : "expand_more" }} </mat-icon>
-				</span>
-			</mat-list-item>
-		}
-
-		@if (isOpen(item)) {
-			@for (child of item.children; track $index) {
-				<a
-					mat-list-item
-					class="nav-item sub-item"
-					[routerLink]="child.route"
-					routerLinkActive="active"
-					[routerLinkActiveOptions]="{ exact: item.match ?? false }"
-				>
-					<mat-icon matListItemIcon>{{ child.icon }}</mat-icon>
-					<span matListItemTitle>{{ child.title }}</span>
-				</a>
-			}
-		}
-
-		@if (!item.children) {
+<mat-nav-list appNavListKeyManager>
+	@for (item of navItems; track trackByKey($index, item)) {
+		<!-- NO CHILD -->
+		@if (!item.children && item.route) {
 			<a
 				mat-list-item
-				class="nav-item"
+				appListItemFocusable
+				[appNavActive]="item.route"
 				[routerLink]="item.route"
 				routerLinkActive="active"
-				[routerLinkActiveOptions]="{ exact: item.match ?? false }"
+				[routerLinkActiveOptions]="{ exact: false }"
 			>
 				<mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
 				<span matListItemTitle>{{ item.title }}</span>
 			</a>
+		}
+
+		<!-- WITH CHILD -->
+		@else {
+			<!-- Parent -->
+			<mat-list-item
+				appListItemFocusable
+				(click)="toggle(item.title)"
+				[class.active-parent]="isParentActive(item)"
+			>
+				<mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+				<span matListItemTitle>{{ item.title }}</span>
+
+				<span matListItemMeta>
+					<mat-icon class="arrow" [class.open]="isOpen(item)"> expand_more </mat-icon>
+				</span>
+			</mat-list-item>
+
+			<!-- SUBMENU -->
+			<div class="submenu" [class.open]="isOpen(item)">
+				@for (child of item.children; track trackByKey($index, child)) {
+					@if (child.route) {
+						<a
+							mat-list-item
+							appListItemFocusable
+							[appNavActive]="child.route"
+							[routerLink]="child.route"
+							routerLinkActive="active"
+							[routerLinkActiveOptions]="{ exact: false }"
+						>
+							<mat-icon matListItemIcon>{{ child.icon }}</mat-icon>
+							<span matListItemTitle>{{ child.title }}</span>
+						</a>
+					}
+				}
+			</div>
 		}
 	}
 </mat-nav-list>

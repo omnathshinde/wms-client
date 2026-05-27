@@ -35,10 +35,10 @@ export class RoleService {
 	}
 
 	restore<T>(id: number | string): Observable<T> {
-		return this.http.post<T>(`${this.apiUrl}/role/restore/${id}`, {});
+		return this.http.patch<T>(`${this.apiUrl}/role/${id}`, {});
 	}
 
 	bulkCreate<T>(data: T[]): Observable<T[]> {
-		return this.http.post<T[]>(`${this.apiUrl}/role/bulk`, data);
+		return this.http.post<T[]>(`${this.apiUrl}/role/bulk-records`, data);
 	}
 }

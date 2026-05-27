@@ -1,0 +1,9 @@
+import { Component } from "@angular/core";
+
+@Component({
+	selector: "app-qc",
+	imports: [],
+	templateUrl: "./qc.html",
+	styleUrl: "./qc.scss",
+})
+export class Qc {}
