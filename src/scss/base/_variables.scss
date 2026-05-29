@@ -1,5 +1,5 @@
 @use "@angular/material" as mat;
-@use "base/palettes" as *;
+@use "scss/base/palettes" as *;
 
 :root {
 	--primary-color: #{mat.m2-get-color-from-palette($primary-palette)};

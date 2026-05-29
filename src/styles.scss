@@ -1,11 +1,11 @@
 @use "@angular/material" as mat;
 @use "tailwindcss";
 
-@use "themes/light" as light;
-@use "themes/dark" as dark;
-@use "base/scrollbar";
-@use "base/variables";
-@use "base/material";
+@use "scss/themes/light" as light;
+@use "scss/themes/dark" as dark;
+@use "scss/base/scrollbar";
+@use "scss/base/variables";
+@use "scss/base/material";
 
 html,
 body {

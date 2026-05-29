@@ -33,7 +33,7 @@
 						],
 						"styles": ["src/styles.scss", "node_modules/ngx-toastr/toastr.css"],
 						"stylePreprocessorOptions": {
-							"includePaths": ["src/scss"]
+							"includePaths": ["src"]
 						}
 					},
 					"configurations": {
@@ -150,7 +150,7 @@
 						],
 						"styles": ["src/styles.scss", "node_modules/ngx-toastr/toastr.css"],
 						"stylePreprocessorOptions": {
-							"includePaths": ["src/scss"]
+							"includePaths": ["src"]
 						}
 					}
 				},

@@ -1,5 +1,5 @@
 @use "@angular/material" as mat;
-@use "base/palettes" as palettes;
+@use "scss/base/palettes" as palettes;
 
 $dark-theme: mat.m2-define-dark-theme(
 	(
