@@ -6,6 +6,15 @@
 <form [formGroup]="form">
 	<mat-dialog-content>
 		<mat-form-field appearance="outline" class="w-full">
+			<mat-select formControlName="siteId" placeholder="Select Site">
+				@for (site of sites; track site.id) {
+					<mat-option [value]="site.id">
+						{{ site.name }}
+					</mat-option>
+				}
+			</mat-select>
+		</mat-form-field>
+		<mat-form-field appearance="outline" class="w-full">
 			<mat-label>Customer Name</mat-label>
 			<input matInput formControlName="name" placeholder="Enter customer name" />
 			<mat-hint>Only letters allowed (min 3 characters)</mat-hint>

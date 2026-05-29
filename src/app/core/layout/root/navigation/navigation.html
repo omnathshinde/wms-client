@@ -1,5 +1,5 @@
 <mat-nav-list appNavListKeyManager>
-	@for (item of navItems; track trackByKey($index, item)) {
+	@for (item of filteredNavItems; track trackByKey($index, item)) {
 		<!-- NO CHILD -->
 		@if (!item.children && item.route) {
 			<a

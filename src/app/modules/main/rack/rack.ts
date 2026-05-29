@@ -127,7 +127,7 @@ export class Rack extends UiComponent {
 	onDeleteRestore(type: "delete" | "restore", data: RackDTO): void {
 		const actionMap = {
 			delete: {
-				call: () => this.zoneService.delete(data.id),
+				call: () => this.rackService.delete(data.id),
 				message: "Rack deactivated successfully",
 				confirmText: "Yes, delete it",
 				title: "Deactivate Rack?",
@@ -135,8 +135,8 @@ export class Rack extends UiComponent {
 				icon: "warning" as const,
 			},
 			restore: {
-				call: () => this.zoneService.restore(data.id),
-				message: "Zone restored successfully",
+				call: () => this.rackService.restore(data.id),
+				message: "Rack restored successfully",
 				confirmText: "Yes, restore it",
 				title: "Reactivate Rack?",
 				text: "Are you sure you want to reactivate this rack?",

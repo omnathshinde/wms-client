@@ -4,6 +4,15 @@
 </mat-toolbar>
 <form [formGroup]="form">
 	<mat-dialog-content>
+		<mat-form-field appearance="outline" class="w-full">
+			<mat-select formControlName="siteId" placeholder="Select Site">
+				@for (site of sites; track site.id) {
+					<mat-option [value]="site.id">
+						{{ site.name }}
+					</mat-option>
+				}
+			</mat-select>
+		</mat-form-field>
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-2">
 			<mat-form-field appearance="outline" class="w-full">
 				<mat-label>Material Name</mat-label>
@@ -33,11 +42,6 @@
 			<mat-form-field appearance="outline" class="w-full">
 				<mat-label>Net Volume</mat-label>
 				<input matInput type="number" formControlName="netVolume" placeholder="Enter net volume" />
-			</mat-form-field>
-
-			<mat-form-field appearance="outline" class="w-full">
-				<mat-label>Quantity</mat-label>
-				<input matInput type="number" formControlName="quantity" placeholder="Enter quantity" />
 			</mat-form-field>
 		</div>
 	</mat-dialog-content>

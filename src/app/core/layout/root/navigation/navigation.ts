@@ -2,6 +2,7 @@ import { Component, inject, signal } from "@angular/core";
 import { NavigationEnd, Router } from "@angular/router";
 import { filter } from "rxjs";
 
+import { AuthService } from "src/app/core/auth/auth.service";
 import { AppModule } from "src/app/core/configs/app.module";
 import { AppNavigation } from "src/app/core/configs/app.navigation";
 import { NavItem } from "src/app/interfaces/common/NavItem";
@@ -17,14 +18,37 @@ import { NavListKeyManager } from "src/app/shared/directives/nav-list-key-manage
 })
 export class Navigation {
 	private router = inject(Router);
+	private authService = inject(AuthService);
 	navItems: NavItem[] = AppNavigation;
 	openMap = signal<Record<string, boolean>>({});
 	private parentMap = new Map<string, string>();
+	filteredNavItems: NavItem[] = [];
 
 	constructor() {
+		this.filterNavigation();
 		this.buildParentMap();
 		this.router.events.pipe(filter((e) => e instanceof NavigationEnd)).subscribe(() => this.syncMenuWithRoute());
 		this.syncMenuWithRoute();
+	}
+
+	private filterNavigation(): void {
+		const accesses = this.authService.getAccess();
+
+		this.filteredNavItems = this.navItems
+			.map((item) => {
+				// parent without children
+				if (!item.children) {
+					return accesses.includes(item.access || "") ? item : null;
+				}
+				// filter children
+				const children = item.children.filter((child) => accesses.includes(child.access || ""));
+				// hide parent if empty
+				if (!children.length) {
+					return null;
+				}
+				return { ...item, children };
+			})
+			.filter((item): item is NavItem => item !== null);
 	}
 
 	private buildParentMap(): void {

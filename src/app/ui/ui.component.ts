@@ -8,6 +8,7 @@ import { CustomerService } from "@app/modules/services/customer.service";
 import { MaterialService } from "@app/modules/services/material.service";
 import { RackService } from "@app/modules/services/rack.service";
 import { RoleService } from "@app/modules/services/role.service";
+import { RoleAccessService } from "@app/modules/services/roleAccess.service";
 import { ShelfService } from "@app/modules/services/shelf.service";
 import { SiteService } from "@app/modules/services/site.service";
 import { UserService } from "@app/modules/services/user.service";
@@ -22,6 +23,7 @@ export abstract class UiComponent {
 	protected readonly authService = inject(AuthService);
 	protected readonly userService = inject(UserService);
 	protected readonly roleService = inject(RoleService);
+	protected readonly roleAccessService = inject(RoleAccessService);
 	protected readonly siteService = inject(SiteService);
 	protected readonly zoneService = inject(ZoneService);
 	protected readonly rackService = inject(RackService);

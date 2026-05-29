@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 
 import { AppComponent } from "src/app/core/configs/app.component";
 import { AppModule } from "src/app/core/configs/app.module";
+import { CustomerDTO } from "src/app/interfaces/models/CustomerDTO";
 import { UiComponent } from "src/app/ui/ui.component";
 
 @Component({
@@ -15,14 +16,19 @@ import { UiComponent } from "src/app/ui/ui.component";
 export class CustomerDialog extends UiComponent implements OnInit {
 	form!: FormGroup;
 	isEdit = false;
+	sites: CustomerDTO[] = [];
 
 	private readonly dialog = inject(MatDialogRef<CustomerDialog>);
 	private readonly data = inject(MAT_DIALOG_DATA);
 
 	ngOnInit(): void {
+		this.loadSites();
 		this.isEdit = !!this.data;
+		const user = this.authService.getUser();
+		const userSiteId = this.data?.siteId ?? user?.siteId ?? null;
 
 		this.form = this.fb.group({
+			siteId: [{ value: userSiteId, disabled: !!user?.siteId }, Validators.required],
 			name: [
 				this.data?.name || "",
 				[
@@ -36,10 +42,24 @@ export class CustomerDialog extends UiComponent implements OnInit {
 		});
 	}
 
+	loadSites(): void {
+		this.siteService.getAll<CustomerDTO>("status=1").subscribe({
+			next: (res) => {
+				this.sites = res.rows;
+			},
+		});
+	}
+
 	onSubmit(): void {
 		if (this.form.invalid) return;
 
-		const payload = { ...this.form.value };
+		const payload = {
+			...this.form.getRawValue(),
+			siteId:
+				typeof this.form.getRawValue().siteId === "object"
+					? this.form.getRawValue().siteId.id
+					: this.form.getRawValue().siteId,
+		};
 
 		const request$ = this.isEdit
 			? this.customerService.update(this.data.id, payload)

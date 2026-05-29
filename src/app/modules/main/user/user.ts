@@ -27,6 +27,10 @@ export class User extends UiComponent {
 			accessor: (row: UserDTO) => row.role?.name,
 			label: "Role",
 		},
+		{
+			accessor: (row: UserDTO) => row.site?.name,
+			label: "Site",
+		},
 		{ label: "Updated At", accessor: "updatedAt" as const, date: true },
 		{ label: "Updated By", accessor: "updatedBy" as const },
 	];

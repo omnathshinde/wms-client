@@ -6,5 +6,11 @@ export interface MaterialDTO extends BaseDTO {
 	id: number | string;
 	name: string;
 	siteId?: number;
+	description: string;
+	customerName: string;
+	UOM?: string | null;
+	netWeight?: number | null;
+	netVolume?: number | null;
+	quantity: number;
 	site?: SiteDTO;
 }

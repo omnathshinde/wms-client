@@ -22,6 +22,7 @@ export class Shelf extends UiComponent {
 	apiUrl = "shelf/search/records";
 	displayedColumns = [
 		{ label: "Shelf", accessor: "name" as const },
+		{ label: "Barcode", accessor: "barcode" as const },
 		{ label: "Rack", accessor: (row: ShelfDTO) => row.rack?.name ?? "-" },
 		{ label: "Zone", accessor: (row: ShelfDTO) => row.rack?.zone?.name ?? "-" },
 		{ label: "Site", accessor: (row: ShelfDTO) => row.rack?.zone?.site?.name ?? "-" },
@@ -128,7 +129,7 @@ export class Shelf extends UiComponent {
 	onDeleteRestore(type: "delete" | "restore", data: ShelfDTO): void {
 		const actionMap = {
 			delete: {
-				call: () => this.zoneService.delete(data.id),
+				call: () => this.shelfService.delete(data.id),
 				message: "Shelf deactivated successfully",
 				confirmText: "Yes, delete it",
 				title: "Deactivate Shelf?",
@@ -136,7 +137,7 @@ export class Shelf extends UiComponent {
 				icon: "warning" as const,
 			},
 			restore: {
-				call: () => this.zoneService.restore(data.id),
+				call: () => this.shelfService.restore(data.id),
 				message: "Shelf restored successfully",
 				confirmText: "Yes, restore it",
 				title: "Reactivate Shelf?",

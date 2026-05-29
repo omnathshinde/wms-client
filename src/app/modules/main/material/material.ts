@@ -3,7 +3,7 @@ import { FormGroup } from "@angular/forms";
 
 import { AppComponent } from "src/app/core/configs/app.component";
 import { AppModule } from "src/app/core/configs/app.module";
-import { SiteDTO } from "src/app/interfaces/models/SiteDTO";
+import { MaterialDTO } from "src/app/interfaces/models/MaterialDTO";
 import { UiComponent } from "src/app/ui/ui.component";
 
 import { MaterialDialog } from "./material-dialog/material-dialog";
@@ -18,7 +18,12 @@ export class Material extends UiComponent {
 	pageTitle = "Material Details";
 	apiUrl = "material/search/records";
 	displayedColumns = [
-		{ label: "Material Name", accessor: "name" as const },
+		{ label: "Name", accessor: "name" as const },
+		{ label: "Description", accessor: "description" as const },
+		{ label: "Vendor", accessor: "customerName" as const },
+		{ label: "Net Wt.", accessor: "netWeight" as const },
+		{ label: "Net Vo.", accessor: "netVolume" as const },
+		{ label: "Site", accessor: (row: MaterialDTO) => row.site?.name ?? "-" },
 		{ label: "Created At", accessor: "createdAt" as const, date: true },
 		{ label: "Created By", accessor: "createdBy" as const },
 	];
@@ -38,7 +43,7 @@ export class Material extends UiComponent {
 		];
 	}
 
-	filterFields: Partial<Record<keyof SiteDTO, string | number | boolean>> = {
+	filterFields: Partial<Record<keyof MaterialDTO, string | number | boolean>> = {
 		status: 1,
 		name: "",
 	};
@@ -74,7 +79,7 @@ export class Material extends UiComponent {
 		this.toastr.warning("Export functionality coming soon!");
 	}
 
-	onAction(event: { type: string; data: SiteDTO }): void {
+	onAction(event: { type: string; data: MaterialDTO }): void {
 		switch (event.type) {
 			case "edit":
 				this.handleAction("update", event.data);
@@ -90,7 +95,7 @@ export class Material extends UiComponent {
 		}
 	}
 
-	handleAction(action: string, data?: SiteDTO): void {
+	handleAction(action: string, data?: MaterialDTO): void {
 		switch (action) {
 			case "create":
 			case "update":
@@ -105,7 +110,7 @@ export class Material extends UiComponent {
 		}
 	}
 
-	onCreateUpdate(action: string, data?: SiteDTO): void {
+	onCreateUpdate(action: string, data?: MaterialDTO): void {
 		this.matDialog
 			.open(MaterialDialog, {
 				minWidth: "60%",
@@ -119,7 +124,7 @@ export class Material extends UiComponent {
 			});
 	}
 
-	onDeleteRestore(type: "delete" | "restore", data: SiteDTO): void {
+	onDeleteRestore(type: "delete" | "restore", data: MaterialDTO): void {
 		const actionMap = {
 			delete: {
 				call: () => this.siteService.delete(data.id),
