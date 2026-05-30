@@ -1,1 +1,74 @@
-<p>putaway works!</p>
+<app-header-container title="Putaway Details"></app-header-container>
+
+<app-container>
+	<div class="mt-4 ml-4 mr-4 mb-2">
+		<p class="text-sm">Scan location first, then scan material barcode.</p>
+	</div>
+
+	@if (selectedLocation) {
+		<app-container cardClass="!shadow-none bg-green-500">
+			<div class="mb-1 flex items-center justify-between rounded-xl p-4">
+				<div>
+					<p class="text-xs uppercase tracking-wide">Selected Location</p>
+
+					<p class="text-sm">Name : {{ selectedLocation.name }}</p>
+
+					<p class="text-sm">Barcode : {{ selectedLocation.barcode }}</p>
+				</div>
+			</div>
+		</app-container>
+	}
+	<div class="flex items-start gap-3 pl-4 lg:flex-row lg:items-start">
+		<form [formGroup]="form" class="flex-1">
+			@if (!selectedLocation) {
+				<mat-form-field appearance="outline" class="w-full">
+					<mat-label>Location Barcode</mat-label>
+					<input
+						matInput
+						#locationInput
+						placeholder="Enter Location Barcode"
+						formControlName="locationBarcode"
+						(keyup.enter)="onScanLocation()"
+					/>
+				</mat-form-field>
+			}
+
+			@if (selectedLocation) {
+				<mat-form-field appearance="outline" class="w-full">
+					<mat-label>Material Barcode</mat-label>
+					<input
+						matInput
+						#materialInput
+						placeholder="Enter Material Barcode"
+						formControlName="materialBarcode"
+						(keyup.enter)="onScanMaterial()"
+					/>
+				</mat-form-field>
+			}
+		</form>
+
+		<div class="flex gap-2">
+			<button
+				type="button"
+				mat-raised-button
+				color="primary"
+				(click)="selectedLocation ? onScanMaterial() : onScanLocation()"
+			>
+				<mat-icon>qr_code_scanner</mat-icon>
+				Scan
+			</button>
+
+			<button type="button" mat-raised-button color="warn" (click)="onReset()">
+				<mat-icon>refresh</mat-icon>
+				Clear
+			</button>
+		</div>
+	</div>
+</app-container>
+<app-container>
+	<mat-card-header>
+		<mat-card-title> Materials waiting for putaway. </mat-card-title>
+	</mat-card-header>
+	<app-data-table-1 [apiUrl]="apiUrl" [displayedColumns]="displayedColumns" [reload]="reloadTable">
+	</app-data-table-1>
+</app-container>

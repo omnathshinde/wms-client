@@ -1,1 +1,29 @@
-<p>data-table-1 works!</p>
+<div class="mat-elevation-z8 table-wrapper">
+	<mat-paginator
+		[length]="totalCount"
+		[pageSize]="limit"
+		[pageSizeOptions]="pageSizeOptions"
+		(page)="onPageSizeChange($event)"
+	>
+	</mat-paginator>
+	<!-- Table -->
+	<table mat-table [dataSource]="dataSource" class="mat-elevation-z1 mat-table">
+		<!-- Dynamic Data Columns -->
+		@for (col of displayedColumns; track $index) {
+			<ng-container [matColumnDef]="col.accessor.toString()">
+				<th mat-header-cell *matHeaderCellDef>{{ col.label }}</th>
+				<td mat-cell *matCellDef="let row">
+					@if (col.date) {
+						{{ row[col.accessor] | date: "short" }}
+					} @else {
+						{{ row[col.accessor] || "-" }}
+					}
+				</td>
+			</ng-container>
+		}
+
+		<!-- Header and Rows -->
+		<tr mat-header-row *matHeaderRowDef="columnAccessors"></tr>
+		<tr mat-row *matRowDef="let row; columns: columnAccessors"></tr>
+	</table>
+</div>

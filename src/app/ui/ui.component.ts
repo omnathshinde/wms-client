@@ -5,7 +5,9 @@ import { ToastrService } from "ngx-toastr";
 
 import { AuthService } from "@app/core/auth/auth.service";
 import { CustomerService } from "@app/modules/services/customer.service";
+import { InwardService } from "@app/modules/services/inward.service";
 import { MaterialService } from "@app/modules/services/material.service";
+import { PutawayService } from "@app/modules/services/putaway.service";
 import { RackService } from "@app/modules/services/rack.service";
 import { RoleService } from "@app/modules/services/role.service";
 import { RoleAccessService } from "@app/modules/services/roleAccess.service";
@@ -30,4 +32,7 @@ export abstract class UiComponent {
 	protected readonly shelfService = inject(ShelfService);
 	protected readonly materialService = inject(MaterialService);
 	protected readonly customerService = inject(CustomerService);
+
+	protected readonly inwardService = inject(InwardService);
+	protected readonly putawayService = inject(PutawayService);
 }

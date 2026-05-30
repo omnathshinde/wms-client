@@ -16,7 +16,7 @@ export class ShelfService extends BaseService {
 	}
 
 	search<T>(query: string): Observable<ApiResponse<T>> {
-		return this.http.get<ApiResponse<T>>(this.getUrl(`/search/records${query}`));
+		return this.http.get<ApiResponse<T>>(this.getUrl(`/search/records?${query}`));
 	}
 
 	getById<T>(id: number | string): Observable<T> {
