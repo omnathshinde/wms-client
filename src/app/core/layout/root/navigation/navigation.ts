@@ -38,6 +38,9 @@ export class Navigation {
 			.map((item) => {
 				// parent without children
 				if (!item.children) {
+					if (item.title === "Dashboard") {
+						return item;
+					}
 					return accesses.includes(item.access || "") ? item : null;
 				}
 				// filter children

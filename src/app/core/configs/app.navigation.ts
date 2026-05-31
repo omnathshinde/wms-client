@@ -63,22 +63,70 @@ export const AppNavigation: NavItem[] = [
 		],
 	},
 	{
-		title: "Inward",
-		icon: "move_to_inbox",
-		route: "transactions/inward",
-		access: "Inward Details",
+		title: "Barcode Printing",
+		icon: "qr_code",
+		children: [
+			{
+				title: "Location Barcode",
+				icon: "location_on",
+				route: "/barcode/location",
+				access: "Inward Details",
+			},
+			{
+				title: "Material Barcode",
+				icon: "inventory_2",
+				route: "/barcode/material",
+				access: "Inward Details",
+			},
+		],
 	},
 	{
-		title: "QC",
-		icon: "fact_check",
-		route: "transactions/quality-check",
-		access: "QC Details",
+		title: "Inbound Operation",
+		icon: "call_received",
+		children: [
+			{
+				title: "Inward",
+				icon: "move_to_inbox",
+				route: "/transactions/inward",
+				access: "Inward Details",
+			},
+			{
+				title: "QC",
+				icon: "fact_check",
+				route: "/transactions/quality-check",
+				access: "QC Details",
+			},
+			{
+				title: "Putaway",
+				icon: "inventory_2",
+				route: "/transactions/putaway",
+				access: "Putaway Details",
+			},
+		],
 	},
 	{
-		title: "Putaway",
-		icon: "inventory_2",
-		route: "transactions/putaway",
-		access: "Putaway Details",
+		title: "Outbound Operations",
+		icon: "local_shipping",
+		children: [
+			{
+				title: "Picking",
+				icon: "shopping_cart",
+				route: "/transactions/picking",
+				access: "Picking Details",
+			},
+			{
+				title: "Packing",
+				icon: "inventory",
+				route: "/transactions/packing",
+				access: "Picking Details",
+			},
+			{
+				title: "Dispatch",
+				icon: "local_shipping",
+				route: "/transactions/dispatch",
+				access: "Picking Details",
+			},
+		],
 	},
 	{
 		title: "Reports",

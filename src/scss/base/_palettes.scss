@@ -23,9 +23,9 @@ $violet-palette: mat.$m2-purple-palette;
    SELECT YOUR BRAND COLORS 👇
 ------------------------------ */
 
-$primary-base: mat.$m2-blue-palette;
-$accent-base: mat.$m2-light-blue-palette;
-$warn-base: mat.$m2-red-palette;
+$primary-base: $blue-palette;
+$accent-base: $azure-palette;
+$warn-base: $red-palette;
 
 /* -----------------------------
    Final Material palettes
