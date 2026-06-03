@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 
-import { ApiResponse } from "src/app/interfaces/common/ApiResponse";
-import { InwardDTO } from "src/app/interfaces/models/InwardDTO";
+import { ApiResponse } from "src/app/@types/common/ApiResponse";
+import { InwardDTO } from "src/app/@types/models/InwardDTO";
 import { BaseService } from "src/app/ui/ui.service";
 
 export interface BulkUploadPayload {

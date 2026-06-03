@@ -2,8 +2,8 @@ import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 
+import { ApiResponse } from "src/app/@types/common/ApiResponse";
 import { API_URL } from "src/app/app";
-import { ApiResponse } from "src/app/interfaces/common/ApiResponse";
 
 @Injectable({ providedIn: "root" })
 export class RoleService {

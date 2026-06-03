@@ -1,4 +1,4 @@
-import { BaseDTO } from "src/app/interfaces/common/BaseDTO";
+import { BaseDTO } from "src/app/@types/common/BaseDTO";
 
 import { SiteDTO } from "./SiteDTO";
 

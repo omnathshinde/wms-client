@@ -2,9 +2,9 @@ import { Component, inject, OnInit } from "@angular/core";
 import { FormGroup, Validators } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 
+import { CustomerDTO } from "src/app/@types/models/CustomerDTO";
 import { AppComponent } from "src/app/core/configs/app.component";
 import { AppModule } from "src/app/core/configs/app.module";
-import { CustomerDTO } from "src/app/interfaces/models/CustomerDTO";
 import { UiComponent } from "src/app/ui/ui.component";
 
 @Component({

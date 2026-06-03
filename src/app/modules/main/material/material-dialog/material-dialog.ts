@@ -2,10 +2,10 @@ import { Component, inject, OnInit } from "@angular/core";
 import { FormGroup, Validators } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 
+import { MaterialDTO } from "src/app/@types/models/MaterialDTO";
 import { AppComponent } from "src/app/core/configs/app.component";
 import { AppModule } from "src/app/core/configs/app.module";
 import { UiComponent } from "src/app/ui/ui.component";
-import { MaterialDTO } from "@app/interfaces/models/MaterialDTO";
 
 @Component({
 	selector: "app-material-dialog",

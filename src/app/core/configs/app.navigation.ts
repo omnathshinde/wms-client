@@ -1,4 +1,4 @@
-import { NavItem } from "src/app/interfaces/common/NavItem";
+import { NavItem } from "src/app/@types/common/NavItem";
 
 export const AppNavigation: NavItem[] = [
 	{

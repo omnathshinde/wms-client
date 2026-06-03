@@ -2,10 +2,10 @@ import { Component, inject, signal } from "@angular/core";
 import { NavigationEnd, Router } from "@angular/router";
 import { filter } from "rxjs";
 
+import { NavItem } from "src/app/@types/common/NavItem";
 import { AuthService } from "src/app/core/auth/auth.service";
 import { AppModule } from "src/app/core/configs/app.module";
 import { AppNavigation } from "src/app/core/configs/app.navigation";
-import { NavItem } from "src/app/interfaces/common/NavItem";
 import { ListItemFocusable } from "src/app/shared/directives/list-item-focusable.directive";
 import { NavActiveDirective } from "src/app/shared/directives/nav-active.directive";
 import { NavListKeyManager } from "src/app/shared/directives/nav-list-key-manager.directive";

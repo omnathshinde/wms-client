@@ -3,9 +3,9 @@ import { FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 
+import { ApiState } from "src/app/@types/common/ApiState";
 import { AuthService } from "src/app/core/auth/auth.service";
 import { AppModule } from "src/app/core/configs/app.module";
-import { ApiState } from "src/app/interfaces/common/ApiState";
 
 interface LoginPayload {
 	username: string;

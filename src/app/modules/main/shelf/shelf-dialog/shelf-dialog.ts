@@ -2,12 +2,12 @@ import { Component, inject, OnInit } from "@angular/core";
 import { FormGroup, Validators } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 
-import { AppComponent } from "@app/core/configs/app.component";
-import { AppModule } from "@app/core/configs/app.module";
-import { RackDTO } from "@app/interfaces/models/RackDTO";
-import { SiteDTO } from "@app/interfaces/models/SiteDTO";
-import { ZoneDTO } from "@app/interfaces/models/ZoneDTO";
-import { UiComponent } from "@app/ui/ui.component";
+import { RackDTO } from "src/app/@types/models/RackDTO";
+import { SiteDTO } from "src/app/@types/models/SiteDTO";
+import { ZoneDTO } from "src/app/@types/models/ZoneDTO";
+import { AppComponent } from "src/app/core/configs/app.component";
+import { AppModule } from "src/app/core/configs/app.module";
+import { UiComponent } from "src/app/ui/ui.component";
 
 @Component({
 	selector: "app-shelf-dialog",

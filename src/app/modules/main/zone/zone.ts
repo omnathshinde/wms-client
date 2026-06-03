@@ -2,10 +2,10 @@ import { Component } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import Swal from "sweetalert2";
 
-import { AppComponent } from "@app/core/configs/app.component";
-import { AppModule } from "@app/core/configs/app.module";
-import { ZoneDTO } from "@app/interfaces/models/ZoneDTO";
-import { UiComponent } from "@app/ui/ui.component";
+import { ZoneDTO } from "src/app/@types/models/ZoneDTO";
+import { AppComponent } from "src/app/core/configs/app.component";
+import { AppModule } from "src/app/core/configs/app.module";
+import { UiComponent } from "src/app/ui/ui.component";
 
 import { ZoneDialog } from "./zone-dialog/zone-dialog";
 

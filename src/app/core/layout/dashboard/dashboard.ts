@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, signal } from "@angular/core";
 
-import { AppModule } from "@core/configs/app.module";
-import { DashboardData, DashboardService } from "@core/services/dashboard.service";
+import { AppModule } from "src/app/core/configs/app.module";
+import { DashboardData, DashboardService } from "src/app/core/services/dashboard.service";
 
 @Component({
 	selector: "app-dashboard",

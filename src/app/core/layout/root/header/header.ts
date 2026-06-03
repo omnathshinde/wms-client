@@ -1,9 +1,9 @@
 import { Component, inject } from "@angular/core";
 
+import { AuthService } from "src/app/core/auth/auth.service";
+import { AppModule } from "src/app/core/configs/app.module";
 import { LayoutService } from "src/app/core/services/layout.service";
-import { AuthService } from "@core/auth/auth.service";
-import { AppModule } from "@core/configs/app.module";
-import { ThemeService } from "@core/services/theme.service";
+import { ThemeService } from "src/app/core/services/theme.service";
 
 @Component({
 	selector: "app-header",

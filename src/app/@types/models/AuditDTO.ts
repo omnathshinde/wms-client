@@ -1,5 +1,5 @@
-import { BaseDTO } from "src/app/interfaces/common/BaseDTO";
-import { SiteDTO } from "src/app/interfaces/models/SiteDTO";
+import { BaseDTO } from "src/app/@types/common/BaseDTO";
+import { SiteDTO } from "src/app/@types/models/SiteDTO";
 
 export interface AuditDTO extends BaseDTO {
 	id: number;

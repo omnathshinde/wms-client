@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 
-import { API_URL } from "@app/app";
+import { API_URL } from "src/app/app";
 
 export interface DashboardData {
 	inventory: number;

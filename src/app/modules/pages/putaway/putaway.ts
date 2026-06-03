@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from "@angular/core";
 import { Validators } from "@angular/forms";
 
-import { ShelfDTO } from "src/app/interfaces/models/ShelfDTO";
-import { AppComponent } from "@app/core/configs/app.component";
-import { AppModule } from "@app/core/configs/app.module";
-import { UiComponent } from "@app/ui/ui.component";
+import { ShelfDTO } from "src/app/@types/models/ShelfDTO";
+import { AppComponent } from "src/app/core/configs/app.component";
+import { AppModule } from "src/app/core/configs/app.module";
+import { UiComponent } from "src/app/ui/ui.component";
 
 @Component({
 	selector: "app-putaway",

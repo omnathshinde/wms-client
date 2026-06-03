@@ -20,10 +20,10 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { RouterOutlet } from "@angular/router";
 
+import { Header } from "src/app/core/layout/root/header/header";
+import { Navigation } from "src/app/core/layout/root/navigation/navigation";
 import { LayoutService } from "src/app/core/services/layout.service";
 import { StateService } from "src/app/core/services/state.service";
-import { Header } from "@core/layout/root/header/header";
-import { Navigation } from "@core/layout/root/navigation/navigation";
 
 @Component({
 	selector: "app-home",

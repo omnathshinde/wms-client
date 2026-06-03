@@ -3,11 +3,11 @@ import { FormControl, Validators } from "@angular/forms";
 import { MatAutocompleteSelectedEvent } from "@angular/material/autocomplete";
 import { debounceTime, distinctUntilChanged } from "rxjs";
 
-import { MaterialDTO } from "src/app/interfaces/models/MaterialDTO";
-import { SiteDTO } from "src/app/interfaces/models/SiteDTO";
-import { AppComponent } from "@app/core/configs/app.component";
-import { AppModule } from "@app/core/configs/app.module";
-import { UiComponent } from "@app/ui/ui.component";
+import { MaterialDTO } from "src/app/@types/models/MaterialDTO";
+import { SiteDTO } from "src/app/@types/models/SiteDTO";
+import { AppComponent } from "src/app/core/configs/app.component";
+import { AppModule } from "src/app/core/configs/app.module";
+import { UiComponent } from "src/app/ui/ui.component";
 
 @Component({
 	selector: "app-inward",

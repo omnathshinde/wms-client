@@ -3,9 +3,9 @@ import { FormGroup, Validators } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { forkJoin } from "rxjs";
 
+import { RoleDTO } from "src/app/@types/models/RoleDTO";
+import { SiteDTO } from "src/app/@types/models/SiteDTO";
 import { AppModule } from "src/app/core/configs/app.module";
-import { RoleDTO } from "src/app/interfaces/models/RoleDTO";
-import { SiteDTO } from "src/app/interfaces/models/SiteDTO";
 import { UiComponent } from "src/app/ui/ui.component";
 
 @Component({

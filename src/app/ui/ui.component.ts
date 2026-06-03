@@ -3,18 +3,18 @@ import { FormBuilder } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
 import { ToastrService } from "ngx-toastr";
 
-import { AuthService } from "@app/core/auth/auth.service";
-import { CustomerService } from "@app/modules/services/customer.service";
-import { InwardService } from "@app/modules/services/inward.service";
-import { MaterialService } from "@app/modules/services/material.service";
-import { PutawayService } from "@app/modules/services/putaway.service";
-import { RackService } from "@app/modules/services/rack.service";
-import { RoleService } from "@app/modules/services/role.service";
-import { RoleAccessService } from "@app/modules/services/roleAccess.service";
-import { ShelfService } from "@app/modules/services/shelf.service";
-import { SiteService } from "@app/modules/services/site.service";
-import { UserService } from "@app/modules/services/user.service";
-import { ZoneService } from "@app/modules/services/zone.service";
+import { AuthService } from "src/app/core/auth/auth.service";
+import { CustomerService } from "src/app/modules/services/customer.service";
+import { InwardService } from "src/app/modules/services/inward.service";
+import { MaterialService } from "src/app/modules/services/material.service";
+import { PutawayService } from "src/app/modules/services/putaway.service";
+import { RackService } from "src/app/modules/services/rack.service";
+import { RoleService } from "src/app/modules/services/role.service";
+import { RoleAccessService } from "src/app/modules/services/roleAccess.service";
+import { ShelfService } from "src/app/modules/services/shelf.service";
+import { SiteService } from "src/app/modules/services/site.service";
+import { UserService } from "src/app/modules/services/user.service";
+import { ZoneService } from "src/app/modules/services/zone.service";
 
 export abstract class UiComponent {
 	protected readonly fb = inject(FormBuilder);

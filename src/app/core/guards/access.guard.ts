@@ -2,7 +2,7 @@ import { inject } from "@angular/core";
 import { CanActivateFn, Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 
-import { AuthService } from "@app/core/auth/auth.service";
+import { AuthService } from "src/app/core/auth/auth.service";
 
 export const AccessGuard: CanActivateFn = (route) => {
 	const router = inject(Router);

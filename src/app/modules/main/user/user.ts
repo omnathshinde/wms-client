@@ -1,9 +1,9 @@
 import { Component } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 
+import { UserDTO } from "src/app/@types/models/UserDTO";
 import { AppComponent } from "src/app/core/configs/app.component";
 import { AppModule } from "src/app/core/configs/app.module";
-import { UserDTO } from "src/app/interfaces/models/UserDTO";
 import { UiComponent } from "src/app/ui/ui.component";
 
 import { UserDialog } from "./user-dialog/user-dialog";

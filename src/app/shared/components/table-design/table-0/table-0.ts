@@ -15,9 +15,9 @@ import { MatPaginator, PageEvent } from "@angular/material/paginator";
 import { MatTableDataSource } from "@angular/material/table";
 import { ToastrService } from "ngx-toastr";
 
+import { ApiResponse } from "src/app/@types/common/ApiResponse";
 import { API_URL } from "src/app/app";
 import { AppModule } from "src/app/core/configs/app.module";
-import { ApiResponse } from "src/app/interfaces/common/ApiResponse";
 
 @Component({
 	selector: "app-table-0",

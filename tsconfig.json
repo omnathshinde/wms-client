@@ -5,9 +5,7 @@
 	"compilerOptions": {
 		"baseUrl": ".",
 		"paths": {
-			"src/*": ["src/*"],
-			"@app/*": ["src/app/*"],
-			"@core/*": ["src/app/core/*"]
+			"src/*": ["src/*"]
 		},
 		"moduleResolution": "bundler",
 		"lib": ["ES2022", "DOM"],

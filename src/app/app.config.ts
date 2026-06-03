@@ -6,14 +6,14 @@ import { provideAnimationsAsync } from "@angular/platform-browser/animations/asy
 import { provideRouter } from "@angular/router";
 import { provideToastr } from "ngx-toastr";
 
+import { API_URL, APP_CONFIG } from "src/app/app";
+import { routes } from "src/app/app.routes";
+import { AuthInterceptor } from "src/app/core/auth/auth.interceptor";
+import { CUSTOM_DATE_FORMATS } from "src/app/core/configs/date.module";
+import { ErrorInterceptor } from "src/app/core/interceptors/error.interceptor";
+import { LoadingInterceptor } from "src/app/core/interceptors/loading.interceptor";
+import { RetryInterceptor } from "src/app/core/interceptors/retry.interceptor";
 import { environment } from "src/environments/environment";
-import { API_URL, APP_CONFIG } from "@app/app";
-import { routes } from "@app/app.routes";
-import { AuthInterceptor } from "@core/auth/auth.interceptor";
-import { CUSTOM_DATE_FORMATS } from "@core/configs/date.module";
-import { ErrorInterceptor } from "@core/interceptors/error.interceptor";
-import { LoadingInterceptor } from "@core/interceptors/loading.interceptor";
-import { RetryInterceptor } from "@core/interceptors/retry.interceptor";
 
 export const appConfig: ApplicationConfig = {
 	providers: [

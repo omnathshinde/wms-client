@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 
-import { ApiMessage } from "@app/interfaces/common/ApiMessage";
-import { ApiResponse } from "@app/interfaces/common/ApiResponse";
-import { BaseService } from "@app/ui/ui.service";
+import { ApiMessage } from "src/app/@types/common/ApiMessage";
+import { ApiResponse } from "src/app/@types/common/ApiResponse";
+import { BaseService } from "src/app/ui/ui.service";
 
 @Injectable({ providedIn: "root" })
 export class ZoneService extends BaseService {

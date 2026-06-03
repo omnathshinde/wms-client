@@ -3,9 +3,9 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
 import { ToastrService } from "ngx-toastr";
 
+import { RoleDTO } from "src/app/@types/models/RoleDTO";
 import { AppComponent } from "src/app/core/configs/app.component";
 import { AppModule } from "src/app/core/configs/app.module";
-import { RoleDTO } from "src/app/interfaces/models/RoleDTO";
 import { RoleDialog } from "src/app/modules/main/role/role-dialog/role-dialog";
 import { RoleService } from "src/app/modules/services/role.service";
 

@@ -1,9 +1,9 @@
 import { Component } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 
+import { MaterialDTO } from "src/app/@types/models/MaterialDTO";
 import { AppComponent } from "src/app/core/configs/app.component";
 import { AppModule } from "src/app/core/configs/app.module";
-import { MaterialDTO } from "src/app/interfaces/models/MaterialDTO";
 import { UiComponent } from "src/app/ui/ui.component";
 
 import { MaterialDialog } from "./material-dialog/material-dialog";

@@ -1,8 +1,8 @@
 import { Component, inject, InjectionToken } from "@angular/core";
 import { RouterOutlet } from "@angular/router";
 
-import { AppConfig } from "src/app/interfaces/common/AppConfig";
-import { ThemeService } from "@core/services/theme.service";
+import { AppConfig } from "src/app/@types/common/AppConfig";
+import { ThemeService } from "src/app/core/services/theme.service";
 
 @Component({
 	selector: "app-root",

@@ -3,9 +3,9 @@ import { FormGroup } from "@angular/forms";
 import { filter } from "rxjs";
 import Swal from "sweetalert2";
 
+import { CustomerDTO } from "src/app/@types/models/CustomerDTO";
 import { AppComponent } from "src/app/core/configs/app.component";
 import { AppModule } from "src/app/core/configs/app.module";
-import { CustomerDTO } from "src/app/interfaces/models/CustomerDTO";
 import { UiComponent } from "src/app/ui/ui.component";
 
 import { CustomerDialog } from "./customer-dialog/customer-dialog";

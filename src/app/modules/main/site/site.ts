@@ -1,9 +1,9 @@
 import { Component } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 
+import { SiteDTO } from "src/app/@types/models/SiteDTO";
 import { AppComponent } from "src/app/core/configs/app.component";
 import { AppModule } from "src/app/core/configs/app.module";
-import { SiteDTO } from "src/app/interfaces/models/SiteDTO";
 import { UiComponent } from "src/app/ui/ui.component";
 
 import { SiteDialog } from "./site-dialog/site-dialog";
