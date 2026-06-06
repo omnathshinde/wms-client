@@ -13,33 +13,34 @@
 <app-container cardClass="p-4">
 	<form [formGroup]="form">
 		<!-- Site -->
-		@if (isAdmin) {
-			<mat-form-field appearance="outline" class="w-full">
-				<mat-label>Site</mat-label>
-				<mat-select formControlName="siteId">
-					@for (site of sites; track site.id) {
-						<mat-option [value]="site.id"> {{ site.name }}</mat-option>
-					}
-				</mat-select>
-			</mat-form-field>
-		}
-
+		<mat-form-field appearance="outline" class="w-full">
+			<mat-label>Site</mat-label>
+			<mat-select formControlName="siteId" [disabled]="!!userSiteId">
+				@for (site of sites; track site.id) {
+					<mat-option [value]="site.id"> {{ site.name }}</mat-option>
+				}
+			</mat-select>
+		</mat-form-field>
 		<!-- Form Grid -->
 		<div class="grid grid-cols-1 gap-2 md:grid-cols-2">
 			<!-- Material -->
 			<mat-form-field appearance="outline">
 				<mat-label>Material</mat-label>
-
 				<input
 					matInput
 					placeholder="Search Material"
 					[matAutocomplete]="materialAuto"
 					[formControl]="materialSearchControl"
 				/>
-
 				<mat-autocomplete #materialAuto="matAutocomplete" (optionSelected)="onMaterialSelected($event)">
-					@for (material of materials; track material.id) {
-						<mat-option [value]="material.id"> - {{ material.name }} </mat-option>
+					@if (materials.length) {
+						@for (material of materials; track material.id) {
+							<mat-option [value]="material">
+								{{ material.name }}
+							</mat-option>
+						}
+					} @else if (materialSearchControl.value.trim()) {
+						<mat-option disabled> Material Not Found </mat-option>
 					}
 				</mat-autocomplete>
 			</mat-form-field>
@@ -52,6 +53,7 @@
 					inputmode="numeric"
 					formControlName="inwardQuantity"
 					placeholder="Enter Inward Quantity"
+					required
 				/>
 			</mat-form-field>
 
@@ -70,28 +72,26 @@
 			<!-- Manufacturing Date -->
 			<mat-form-field appearance="outline">
 				<mat-label>Manufacturing Date</mat-label>
-
 				<input
 					matInput
 					[matDatepicker]="picker"
 					formControlName="manufacturingDate"
+					[max]="maxDate"
 					placeholder="Select Manufacturing Date"
 				/>
-
-				<mat-datepicker-toggle matSuffix [for]="picker"> </mat-datepicker-toggle>
-
+				<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
 				<mat-datepicker #picker></mat-datepicker>
 			</mat-form-field>
 
 			<mat-form-field appearance="outline">
 				<mat-label>Suggested Putaway Location (optional)</mat-label>
-				<input matInput formControlName="batch" placeholder="Select Putaway Location" />
+				<input matInput formControlName="shelfName" placeholder="Enter Putaway Location" />
 			</mat-form-field>
 		</div>
 
 		<!-- Actions -->
 		<div class="mt-4 flex justify-end gap-2">
-			<button type="button" mat-raised-button color="primary" (click)="onSave()">
+			<button type="button" mat-raised-button color="primary" [disabled]="form.invalid" (click)="onSave()">
 				<mat-icon>save</mat-icon>
 				Save
 			</button>

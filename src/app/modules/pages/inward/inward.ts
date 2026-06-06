@@ -16,78 +16,125 @@ import { UiComponent } from "src/app/ui/ui.component";
 	styleUrl: "./inward.scss",
 })
 export class Inward extends UiComponent implements OnInit {
-	apiUrl = "inward";
-	reloadTable = 0;
-	isAdmin = true;
+	maxDate: Date = new Date();
+
+	userSiteId: number | string | null = null;
+	userSiteName = "";
+
 	sites: SiteDTO[] = [];
 	materials: MaterialDTO[] = [];
-	materialSearchControl = new FormControl(null);
 
-	displayedColumns = [
-		{ label: "Barcode", accessor: "barcode" },
-		{ label: "Material", accessor: "materialName" },
-		{ label: "Batch", accessor: "batch" },
-		{ label: "Quantity", accessor: "quantity" },
-		{ label: "Invoice", accessor: "invoice" },
-		{ label: "QC Status", accessor: "qcStatus" },
-		{ label: "Created At", accessor: "createdAt", date: true },
-	];
+	selectedMaterial: MaterialDTO | null = null;
+	materialSearchControl = new FormControl<string>("", {
+		nonNullable: true,
+	});
 
 	ngOnInit(): void {
+		this.userSiteId = this.authService.user()?.siteId ?? null;
+		this.loadSites();
+		this.form.controls.siteId.valueChanges.subscribe((siteId) => {
+			if (!siteId) {
+				return;
+			}
+			this.selectedMaterial = null;
+			this.materials = [];
+			this.materialSearchControl.setValue("", { emitEvent: false });
+			this.form.patchValue({ materialId: null, shelfName: null });
+		});
 		this.materialSearchControl.valueChanges.pipe(debounceTime(300), distinctUntilChanged()).subscribe((search) => {
+			if (this.selectedMaterial && search !== this.selectedMaterial.name) {
+				this.selectedMaterial = null;
+				this.form.patchValue({
+					materialId: null,
+				});
+			}
 			this.searchMaterial(search ?? "");
 		});
 	}
 
+	loadSites(): void {
+		this.siteService.getAll<SiteDTO>("status=1").subscribe({
+			next: (res) => {
+				if (!res?.rows?.length) {
+					this.toastr.warning("Site Not found");
+					return;
+				}
+				this.sites = res.rows;
+				if (this.userSiteId) {
+					const site = this.sites.find((x) => x.id === this.userSiteId);
+					this.userSiteName = site?.name ?? "";
+					this.form.patchValue({
+						siteId: this.userSiteId,
+					});
+					this.form.controls.siteId.disable();
+				}
+			},
+		});
+	}
+
 	form = this.fb.group({
-		siteId: this.fb.control<number | null>(null),
-		materialId: this.fb.control<number | null>(null, Validators.required),
+		siteId: this.fb.control<number | string | null>(null),
+		materialId: this.fb.control<number | string | null>(null, Validators.required),
 		batch: this.fb.control("", Validators.required),
 		inwardQuantity: this.fb.control(1, [Validators.required, Validators.min(1), Validators.pattern(/^[0-9]+$/)]),
 		invoice: this.fb.control("", Validators.required),
 		manufacturingDate: this.fb.control<Date | null>(null, Validators.required),
+		shelfName: this.fb.control<number | string | null>(null),
 	});
 
 	onMaterialSelected(event: MatAutocompleteSelectedEvent): void {
-		this.form.patchValue({
-			materialId: event.option.value,
-		});
+		const material = event.option.value as MaterialDTO;
+		this.selectedMaterial = material;
+		this.materialSearchControl.setValue(material.name, { emitEvent: false });
+		this.form.patchValue({ materialId: material.id });
 	}
 
 	searchMaterial(search: string): void {
-		console.log(search);
+		const siteId = this.form.getRawValue().siteId;
+		if (!search.trim()) {
+			this.materials = [];
+			return;
+		}
+		if (!siteId) {
+			this.materials = [];
+			return;
+		}
 
-		// this.materialService.search(...)
+		this.materialService
+			.search<MaterialDTO>(`?status=1&siteId=${siteId}&name=${search}&limit=10`)
+			.subscribe((res) => {
+				this.materials = res.rows;
+			});
 	}
+
+	displayMaterial(material: MaterialDTO | null): string {
+		return material?.name ?? "";
+	}
+
 	onSave(): void {
 		if (this.form.invalid) {
 			this.form.markAllAsTouched();
 			return;
 		}
-
-		const payload = {
-			...this.form.getRawValue(),
-			autoSerial: true,
-		};
-
-		console.log(payload);
-
+		const payload = { ...this.form.getRawValue(), autoSerial: true };
 		this.inwardService.create(payload).subscribe((res) => {
 			this.toastr.success(res.message);
+			this.onReset();
 		});
 	}
 
 	onReset(): void {
-		this.form.reset({
-			inwardQuantity: 1,
-		});
+		this.selectedMaterial = null;
+		this.materials = [];
+		this.materialSearchControl.setValue("", { emitEvent: false });
+		this.form.reset({ siteId: this.userSiteId, inwardQuantity: 1 });
 	}
 
 	onUpload(): void {
-		console.log("Upload");
+		this.toastr.warning("Funtinality comming soon");
 	}
 
 	onUploadSrNo(): void {
-		console.log("Upload");
+		this.toastr.warning("Funtinality comming soon");
 	}
 }
