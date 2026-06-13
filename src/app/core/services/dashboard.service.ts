@@ -5,13 +5,39 @@ import { Observable } from "rxjs";
 import { API_URL } from "src/app/app";
 
 export interface DashboardData {
-	inventory: number;
-	material: number;
+	inventory: {
+		total: number;
+		inStock: number;
+		outOfStock: number;
+	};
+
+	materials: {
+		total: number;
+	};
+
 	qc: {
 		total: number;
 		pending: number;
 		approved: number;
 		rejected: number;
+	};
+
+	putaway: {
+		pending: number;
+		completed: number;
+	};
+
+	picking: {
+		pending: number;
+		completed: number;
+	};
+
+	dispatch: {
+		total: number;
+	};
+
+	returns: {
+		total: number;
 	};
 }
 

@@ -33,8 +33,12 @@ export const routes: Routes = [
 					),
 			},
 			{
-				path: "transactions",
+				path: "inbound",
 				loadChildren: () => import("src/app/modules/pages/pages.routes").then((m) => m.PagesRoutes),
+			},
+			{
+				path: "outbound",
+				loadChildren: () => import("src/app/modules/outbound/outbound.routes").then((m) => m.OutboundRoutes),
 			},
 			{
 				path: "reports",
