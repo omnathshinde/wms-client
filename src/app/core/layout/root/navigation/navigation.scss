@@ -17,10 +17,17 @@
 		max-height: 500px;
 		opacity: 1;
 	}
+
+	.mat-mdc-list-item {
+		margin-left: 1em;
+	}
 }
 
 // Arrow
 .arrow {
+	display: flex;
+	align-items: center;
+
 	transition: transform 0.18s ease;
 
 	&.open {

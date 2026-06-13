@@ -5,7 +5,7 @@ import { SiteDTO } from "./SiteDTO";
 export interface MaterialDTO extends BaseDTO {
 	id: number | string;
 	name: string;
-	siteId?: number;
+	siteId?: number | string;
 	description: string;
 	customerName: string;
 	UOM?: string | null;

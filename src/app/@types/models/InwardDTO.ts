@@ -4,10 +4,10 @@ import { SiteDTO } from "src/app/@types/models/SiteDTO";
 
 export interface InwardDTO extends BaseDTO {
 	id: number;
-	siteId: number;
+	siteId: number | string;
 	barcode: string;
 	autoSerial: boolean;
-	materialId: number;
+	materialId: number | string;
 	materialName: string;
 	materialDescription: string;
 	mrp: string;
@@ -18,7 +18,7 @@ export interface InwardDTO extends BaseDTO {
 	qcStatus: string;
 	qcRemark: null;
 	isPutAway: boolean;
-	shelfId: number;
+	shelfId: number | string;
 	shelfName: string;
 	recommandedShelf: string;
 	isPicked: boolean;

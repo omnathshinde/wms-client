@@ -26,6 +26,13 @@ export const routes: Routes = [
 				loadChildren: () => import("src/app/modules/main/main.routes").then((m) => m.MainRoutes),
 			},
 			{
+				path: "label-printing",
+				loadChildren: () =>
+					import("src/app/modules/label-printing/barcode-printing.routes").then(
+						(m) => m.BarcodePrintingRoutes,
+					),
+			},
+			{
 				path: "transactions",
 				loadChildren: () => import("src/app/modules/pages/pages.routes").then((m) => m.PagesRoutes),
 			},

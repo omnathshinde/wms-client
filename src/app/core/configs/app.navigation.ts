@@ -63,25 +63,25 @@ export const AppNavigation: NavItem[] = [
 		],
 	},
 	{
-		title: "Barcode Printing",
+		title: "Label Printing",
 		icon: "qr_code",
 		children: [
 			{
-				title: "Location Barcode",
+				title: "Location",
 				icon: "location_on",
-				route: "/barcode/location",
+				route: "/label-printing/location",
 				access: "Inward Details",
 			},
 			{
-				title: "Material Barcode",
+				title: "Material",
 				icon: "inventory_2",
-				route: "/barcode/material",
+				route: "/label-printing/material",
 				access: "Inward Details",
 			},
 		],
 	},
 	{
-		title: "Inbound Operation",
+		title: "Inbound",
 		icon: "call_received",
 		children: [
 			{
@@ -105,7 +105,7 @@ export const AppNavigation: NavItem[] = [
 		],
 	},
 	{
-		title: "Outbound Operations",
+		title: "Outbound",
 		icon: "local_shipping",
 		children: [
 			{

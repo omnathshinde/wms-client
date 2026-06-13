@@ -51,7 +51,7 @@ export default defineConfig([
 				},
 			],
 
-			"@typescript-eslint/no-unused-vars": "error",
+			"@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
 			"@typescript-eslint/no-explicit-any": "error",
 			"@angular-eslint/directive-selector": [
 				"error",

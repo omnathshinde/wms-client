@@ -1,0 +1,31 @@
+<app-header-container title="Location Barcode"></app-header-container>
+<app-container>
+	<form [formGroup]="searchForm" class="flex flex-col">
+		<mat-form-field appearance="outline" class="w-full">
+			<mat-label>Search</mat-label>
+			<input matInput placeholder="Search by name" formControlName="name" />
+		</mat-form-field>
+		<div class="flex justify-end items-center mt-2 flex-wrap gap-2">
+			<div class="flex flex-wrap gap-2">
+				<button type="submit" mat-raised-button color="primary" (click)="onSearch()">
+					<mat-icon>search</mat-icon>
+					Search
+				</button>
+				<button type="reset" mat-raised-button color="primary" (click)="onReset()">
+					<mat-icon>autorenew</mat-icon>
+					Reset
+				</button>
+			</div>
+		</div>
+	</form>
+</app-container>
+<app-container>
+	<app-data-table
+		[apiUrl]="apiUrl"
+		[displayedColumns]="displayedColumns"
+		[actionButtons]="actionButtons"
+		[filterFields]="filterFields"
+		(action)="onAction($event)"
+	>
+	</app-data-table>
+</app-container>
