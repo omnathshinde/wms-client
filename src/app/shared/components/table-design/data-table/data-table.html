@@ -41,18 +41,20 @@
 		<!-- Actions Column -->
 		<ng-container matColumnDef="actions">
 			<th mat-header-cell *matHeaderCellDef class="action-cell">Actions</th>
-			<td mat-cell *matCellDef="let row" class="action-cell" (click)="$event.stopPropagation()">
+			<td mat-cell *matCellDef="let row" class="action-cell flex-center gap-5" (click)="$event.stopPropagation()">
 				@for (btn of actionButtons; track $index) {
-					<button
-						type="button"
-						mat-icon-button
-						[color]="btn.color || 'primary'"
-						[matTooltip]="btn.tooltip || btn.type"
-						[disabled]="btn.disabled?.(row)"
-						(click)="handleAction(btn.type, row)"
-					>
-						<mat-icon>{{ btn.icon }}</mat-icon>
-					</button>
+					@if (!btn.visible || btn.visible(row)) {
+						<button
+							type="button"
+							mat-icon-button
+							[color]="btn.color || 'primary'"
+							[matTooltip]="btn.tooltip || btn.type"
+							[disabled]="btn.disabled?.(row)"
+							(click)="handleAction(btn.type, row)"
+						>
+							<mat-icon>{{ btn.icon }}</mat-icon>
+						</button>
+					}
 				}
 			</td>
 		</ng-container>

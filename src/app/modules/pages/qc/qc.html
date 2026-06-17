@@ -1,1 +1,44 @@
 <app-header-container title="QC Details"> </app-header-container>
+<app-container>
+	<form [formGroup]="searchForm" class="flex flex-col">
+		<div class="flex justify-between gap-1 align-center">
+			<mat-form-field appearance="outline" class="w-full">
+				<mat-label>Barcode</mat-label>
+				<input matInput placeholder="Enter a barcode" formControlName="barcode" />
+			</mat-form-field>
+
+			<mat-form-field appearance="outline" class="w-full">
+				<mat-label>QC Status</mat-label>
+				<mat-select formControlName="qcStatus">
+					<mat-option value="">All</mat-option>
+					<mat-option value="Pending">Pending</mat-option>
+					<mat-option value="Approved">Approved</mat-option>
+					<mat-option value="Rejected">Rejected</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+
+		<div class="flex justify-end items-center mt-2 flex-wrap gap-2">
+			<div class="flex flex-wrap gap-2">
+				<button type="submit" mat-raised-button color="primary" (click)="onSearch()">
+					<mat-icon>search</mat-icon>
+					Search
+				</button>
+
+				<button type="reset" mat-raised-button color="primary" (click)="onReset()">
+					<mat-icon>autorenew</mat-icon>
+					Reset
+				</button>
+			</div>
+		</div>
+	</form> </app-container
+><app-container>
+	<app-data-table-2
+		[apiUrl]="apiUrl"
+		[displayedColumns]="displayedColumns"
+		[actionButtons]="actionButtons"
+		[filterFields]="filterFields"
+		(action)="onAction($event)"
+	>
+	</app-data-table-2>
+</app-container>

@@ -7,7 +7,12 @@ import { AuthService } from "src/app/core/auth/auth.service";
 import { CustomerService } from "src/app/modules/services/customer.service";
 import { InwardService } from "src/app/modules/services/inward.service";
 import { MaterialService } from "src/app/modules/services/material.service";
+import { PicklistService } from "src/app/modules/services/picklist.service";
+import { PicklistItemService } from "src/app/modules/services/picklistItem.service";
+import { PicklistItemBarcodeService } from "src/app/modules/services/picklistItemBarcode.service";
+import { PicklistPickerService } from "src/app/modules/services/picklistPicker.service";
 import { PutawayService } from "src/app/modules/services/putaway.service";
+import { QcService } from "src/app/modules/services/qc.service";
 import { RackService } from "src/app/modules/services/rack.service";
 import { RoleService } from "src/app/modules/services/role.service";
 import { RoleAccessService } from "src/app/modules/services/roleAccess.service";
@@ -34,5 +39,11 @@ export abstract class UiComponent {
 	protected readonly customerService = inject(CustomerService);
 
 	protected readonly inwardService = inject(InwardService);
+	protected readonly qcService = inject(QcService);
 	protected readonly putawayService = inject(PutawayService);
+
+	protected readonly picklistService = inject(PicklistService);
+	protected readonly picklistPickerService = inject(PicklistPickerService);
+	protected readonly picklistItemService = inject(PicklistItemService);
+	protected readonly picklistItemBarcodeService = inject(PicklistItemBarcodeService);
 }

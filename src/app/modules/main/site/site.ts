@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 
 import { SiteDTO } from "src/app/@types/models/SiteDTO";
@@ -14,7 +14,7 @@ import { SiteDialog } from "./site-dialog/site-dialog";
 	templateUrl: "./site.html",
 	styleUrl: "./site.scss",
 })
-export class Site extends UiComponent {
+export class Site extends UiComponent implements OnInit {
 	pageTitle = "Site Details";
 	pageHeader = [{ label: "Masters" }, { label: "Site Details", route: "/masters/user" }];
 
@@ -49,6 +49,12 @@ export class Site extends UiComponent {
 		name: [""],
 		status: [0],
 	});
+
+	ngOnInit(): void {
+		this.searchForm.valueChanges.subscribe(() => {
+			this.onSearch();
+		});
+	}
 
 	onSearch(): void {
 		const formValue = this.searchForm.value;
@@ -114,10 +120,18 @@ export class Site extends UiComponent {
 				data: action === "update" ? data : null,
 			})
 			.afterClosed()
-			.subscribe((result) => {
-				if (result) {
+			.subscribe((payload) => {
+				if (!payload) return;
+
+				const request$ =
+					action === "update" && data
+						? this.siteService.update(data.id, payload)
+						: this.siteService.create(payload);
+
+				request$.subscribe((res) => {
+					this.toastr.success(res.message);
 					this.onSearch();
-				}
+				});
 			});
 	}
 

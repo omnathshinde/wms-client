@@ -15,7 +15,7 @@ export interface InwardDTO extends BaseDTO {
 	batch: string;
 	invoice: string;
 	manufacturingDate: Date;
-	qcStatus: string;
+	qcStatus: "Pending" | "Approved" | "Rejected";
 	qcRemark: null;
 	isPutAway: boolean;
 	shelfId: number | string;

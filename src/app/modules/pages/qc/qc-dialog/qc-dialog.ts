@@ -7,31 +7,20 @@ import { AppModule } from "src/app/core/configs/app.module";
 import { UiComponent } from "src/app/ui/ui.component";
 
 @Component({
-	selector: "app-site-dialog",
+	selector: "app-qc-dialog",
 	imports: [AppModule, AppComponent],
-	templateUrl: "./site-dialog.html",
-	styleUrl: "./site-dialog.scss",
+	templateUrl: "./qc-dialog.html",
+	styleUrl: "./qc-dialog.scss",
 })
-export class SiteDialog extends UiComponent implements OnInit {
+export class QcDialog extends UiComponent implements OnInit {
 	form!: FormGroup;
-	isEdit = false;
 
-	private readonly dialog = inject(MatDialogRef<SiteDialog>);
-	private readonly data = inject(MAT_DIALOG_DATA);
+	private readonly dialogRef = inject(MatDialogRef<QcDialog>);
+	public readonly data = inject(MAT_DIALOG_DATA);
 
 	ngOnInit(): void {
-		this.isEdit = !!this.data;
-
 		this.form = this.fb.group({
-			name: [
-				this.data?.name || "",
-				[
-					Validators.required,
-					Validators.minLength(3),
-					Validators.maxLength(50),
-					Validators.pattern(/^[a-zA-Z ]+$/),
-				],
-			],
+			remark: ["", [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
 		});
 	}
 
@@ -41,10 +30,10 @@ export class SiteDialog extends UiComponent implements OnInit {
 			return;
 		}
 
-		this.dialog.close(this.form.getRawValue());
+		this.dialogRef.close(this.form.value.remark);
 	}
 
 	onCancel(): void {
-		this.dialog.close();
+		this.dialogRef.close();
 	}
 }

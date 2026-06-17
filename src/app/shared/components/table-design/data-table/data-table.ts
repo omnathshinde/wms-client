@@ -38,6 +38,7 @@ export class DataTable<T extends { id?: number | string }> implements OnInit, On
 		tooltip?: string;
 		color?: string;
 		disabled?: (row: T) => boolean;
+		visible?: (row: T) => boolean;
 	}[] = [];
 	@Input() filterFields: Partial<Record<keyof T, string | number | boolean>> = {};
 

@@ -1,1 +1,66 @@
-<p>data-table-2 works!</p>
+<mat-paginator
+	class="shadow-none"
+	color="primary"
+	[length]="totalCount"
+	[pageSize]="limit"
+	[pageSizeOptions]="pageSizeOptions"
+	(page)="onPageSizeChange($event)"
+>
+</mat-paginator>
+
+<div class="table-wrapper">
+	<!-- Table -->
+	<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+		<!-- Dynamic Data Columns -->
+		@for (col of displayedColumns; track $index) {
+			<ng-container [matColumnDef]="col.accessor.toString()">
+				<th mat-header-cell *matHeaderCellDef>{{ col.label }}</th>
+				<td mat-cell *matCellDef="let row">
+					@if (col.date) {
+						{{
+							(typeof col.accessor === "function"
+								? col.accessor(row)
+								: col.accessor !== "actions"
+									? row[col.accessor]
+									: null
+							) | date: "dd/MM/yyyy hh:mm:ss a"
+						}}
+					} @else {
+						{{
+							typeof col.accessor === "function"
+								? col.accessor(row)
+								: col.accessor !== "actions"
+									? row[col.accessor]
+									: "-"
+						}}
+					}
+				</td>
+			</ng-container>
+		}
+
+		<!-- Actions Column -->
+		<ng-container matColumnDef="actions">
+			<th mat-header-cell *matHeaderCellDef class="action-cell">Actions</th>
+			<td mat-cell *matCellDef="let row" class="action-cell flex-center gap-5" (click)="$event.stopPropagation()">
+				@for (btn of actionButtons; track $index) {
+					@if (!btn.visible || btn.visible(row)) {
+						<button
+							type="button"
+							mat-icon-button
+							[color]="btn.color || 'primary'"
+							[matTooltip]="btn.tooltip || btn.type"
+							[disabled]="btn.disabled?.(row)"
+							(click)="handleAction(btn.type, row)"
+						>
+							<mat-icon>{{ btn.icon }}</mat-icon>
+						</button>
+					}
+				}
+			</td>
+		</ng-container>
+
+		<!-- Header and Rows -->
+		<tr mat-header-row *matHeaderRowDef="columnAccessors"></tr>
+		<tr mat-row *matRowDef="let row; columns: columnAccessors"></tr>
+	</table>
+</div>
