@@ -13,7 +13,7 @@ export interface AuthUser {
 	email?: string;
 	role?: string;
 	roleId: string;
-	siteId: string | null;
+	siteId: number | string | null;
 	site: string | "" | null;
 }
 

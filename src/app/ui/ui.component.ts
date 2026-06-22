@@ -1,3 +1,4 @@
+import { DatePipe } from "@angular/common";
 import { inject } from "@angular/core";
 import { FormBuilder } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
@@ -5,6 +6,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 
 import { AuthService } from "src/app/core/auth/auth.service";
+import { DashboardService } from "src/app/core/services/dashboard.service";
 import { CustomerService } from "src/app/modules/services/customer.service";
 import { InwardService } from "src/app/modules/services/inward.service";
 import { MaterialService } from "src/app/modules/services/material.service";
@@ -28,8 +30,10 @@ export abstract class UiComponent {
 	protected readonly router = inject(Router);
 	protected readonly toastr = inject(ToastrService);
 	protected readonly matDialog = inject(MatDialog);
+	protected readonly datePipe = inject(DatePipe);
 
 	// services and other common dependencies can be injected here and will be available to all components that extend UiComponent
+	protected readonly dashboard = inject(DashboardService);
 	protected readonly authService = inject(AuthService);
 	protected readonly userService = inject(UserService);
 	protected readonly roleService = inject(RoleService);

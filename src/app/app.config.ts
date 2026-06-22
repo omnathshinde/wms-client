@@ -1,3 +1,4 @@
+import { DatePipe } from "@angular/common";
 import { provideHttpClient, withInterceptors } from "@angular/common/http";
 import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from "@angular/core";
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE, provideNativeDateAdapter } from "@angular/material/core";
@@ -42,5 +43,6 @@ export const appConfig: ApplicationConfig = {
 		provideNativeDateAdapter(),
 		{ provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMATS },
 		{ provide: MAT_DATE_LOCALE, useValue: "en-GB" },
+		DatePipe,
 	],
 };

@@ -1,176 +1,286 @@
-<div class="p-4 space-y-4">
-	<!-- KPI Cards -->
-	<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4">
-		<mat-card class="p-4">
-			<div class="flex items-center justify-between">
-				<div>
-					<p class="text-sm text-slate-500">Inventory</p>
-					<h2 class="text-3xl font-bold">
-						{{ data()?.inventory?.total || 0 }}
-					</h2>
-				</div>
-				<mat-icon class="!w-10 !h-10 !text-4xl text-primary"> inventory_2 </mat-icon>
+<div class="p-4 pt-0 space-y-2">
+	<mat-card class="p-4">
+		<form [formGroup]="form" class="flex justify-between tems-center gap-4">
+			<mat-form-field appearance="outline" class="w-full">
+				<mat-label>Date Range</mat-label>
+				<mat-date-range-input [rangePicker]="picker">
+					<input matStartDate formControlName="startDate" placeholder="Start Date" />
+					<input matEndDate formControlName="endDate" placeholder="End Date" />
+				</mat-date-range-input>
+				<mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+				<mat-date-range-picker #picker></mat-date-range-picker>
+			</mat-form-field>
+			<mat-form-field appearance="outline" class="w-full">
+				<mat-label>Site</mat-label>
+				<mat-select formControlName="siteName" [disabled]="!!userSiteId">
+					@if (!userSiteId) {
+						<mat-option value="All Sites"> All Sites</mat-option>
+					}
+					@for (site of sites(); track site.id) {
+						<mat-option [value]="site.name"> {{ site.name }}</mat-option>
+					}
+				</mat-select>
+			</mat-form-field>
+
+			<div class="flex gap-2 w-full">
+				<button type="submit" mat-raised-button color="primary">Search</button>
+
+				<button mat-stroked-button type="button" (click)="form.reset({ siteName: null })">Clear</button>
+			</div>
+		</form>
+	</mat-card>
+	<!-- Todays Operation -->
+	<h2 class="text-lg font-mediam mb-1">Today's Operations</h2>
+	<div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4">
+		<mat-card class="p-4 text-center">
+			<p class="text-xs opacity-70">Inward</p>
+			<h2 class="text-3xl font-bold">
+				{{ data()?.today?.inward || 0 }}
+			</h2>
+		</mat-card>
+
+		<mat-card class="p-4 text-center">
+			<p class="text-xs opacity-70">QC</p>
+			<h2 class="text-3xl font-bold">
+				{{ data()?.today?.qc || 0 }}
+			</h2>
+		</mat-card>
+
+		<mat-card class="p-4 text-center">
+			<p class="text-xs opacity-70">Putaway</p>
+			<h2 class="text-3xl font-bold">
+				{{ data()?.today?.putaway || 0 }}
+			</h2>
+		</mat-card>
+
+		<mat-card class="p-4 text-center">
+			<p class="text-xs opacity-70">Picklist</p>
+			<h2 class="text-3xl font-bold">
+				{{ data()?.today?.picklist || 0 }}
+			</h2>
+		</mat-card>
+
+		<mat-card class="p-4 text-center">
+			<p class="text-xs opacity-70">Dispatch</p>
+			<h2 class="text-3xl font-bold">
+				{{ data()?.today?.dispatch || 0 }}
+			</h2>
+		</mat-card>
+
+		<mat-card class="p-4 text-center">
+			<p class="text-xs opacity-70">Returns</p>
+			<h2 class="text-3xl font-bold">
+				{{ data()?.today?.returns || 0 }}
+			</h2>
+		</mat-card>
+	</div>
+
+	<!-- Inbound Operation -->
+	<h2 class="text-lg font-mediam mb-1">Inbound Operations</h2>
+	<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+		<!-- Inventory -->
+		<mat-card class="p-5">
+			<h3 class="font-medium mb-4">Inventory</h3>
+			<div class="text-center">
+				<h1 class="text-6xl font-bold">{{ data()?.inbound?.inventory?.total }}</h1>
 			</div>
 		</mat-card>
 
-		<mat-card class="p-4">
-			<div class="flex items-center justify-between">
-				<div>
-					<p class="text-sm text-slate-500">Materials</p>
-					<h2 class="text-3xl font-bold">
-						{{ data()?.materials?.total || 0 }}
-					</h2>
+		<!-- QC -->
+		<mat-card class="p-5 text-center">
+			<h3 class="font-medium mb-4">QC Status</h3>
+			<div class="grid grid-cols-2 gap-3">
+				<div class="rounded-xl p-3 bg-amber-500/10">
+					<p>Pending</p>
+					<h3 class="text-2xl font-bold">{{ data()?.inbound?.qc?.pending }}</h3>
 				</div>
-				<mat-icon class="!w-10 !h-10 !text-4xl text-primary"> category </mat-icon>
+
+				<div class="rounded-xl p-3 bg-red-500/10">
+					<p>Rejected</p>
+					<h3 class="text-2xl font-bold">{{ data()?.inbound?.qc?.rejected }}</h3>
+				</div>
+
+				<div class="rounded-xl p-3 bg-green-500/10 col-span-2">
+					<p>Approved</p>
+					<h3 class="text-2xl font-bold">{{ data()?.inbound?.qc?.approved }}</h3>
+				</div>
 			</div>
 		</mat-card>
 
-		<mat-card class="p-4">
-			<div class="flex items-center justify-between">
-				<div>
-					<p class="text-sm text-slate-500">QC Pending</p>
-					<h2 class="text-3xl font-bold text-amber-500">
-						{{ data()?.qc?.pending || 0 }}
-					</h2>
+		<!-- Putaway -->
+		<mat-card class="p-5">
+			<h3 class="font-medium mb-4">Putaway</h3>
+			<div class="flex justify-around">
+				<div class="text-center">
+					<p>Pending</p>
+					<h3 class="text-4xl font-bold">{{ data()?.inbound?.putaway?.pending }}</h3>
 				</div>
-				<mat-icon class="!w-10 !h-10 !text-4xl text-amber-500"> fact_check </mat-icon>
-			</div>
-		</mat-card>
-
-		<mat-card class="p-4">
-			<div class="flex items-center justify-between">
-				<div>
-					<p class="text-sm text-slate-500">Putaway</p>
-					<h2 class="text-3xl font-bold">
-						{{ data()?.putaway?.pending || 0 }}
-					</h2>
+				<div class="text-center">
+					<p>Completed</p>
+					<h3 class="text-4xl font-bold">{{ data()?.inbound?.putaway?.completed }}</h3>
 				</div>
-				<mat-icon class="!w-10 !h-10 !text-4xl text-primary"> shelves </mat-icon>
-			</div>
-		</mat-card>
-
-		<mat-card class="p-4">
-			<div class="flex items-center justify-between">
-				<div>
-					<p class="text-sm text-slate-500">Picking</p>
-					<h2 class="text-3xl font-bold">
-						{{ data()?.picking?.pending || 0 }}
-					</h2>
-				</div>
-				<mat-icon class="!w-10 !h-10 !text-4xl text-primary"> checklist </mat-icon>
-			</div>
-		</mat-card>
-
-		<mat-card class="p-4">
-			<div class="flex items-center justify-between">
-				<div>
-					<p class="text-sm text-slate-500">Dispatch</p>
-					<h2 class="text-3xl font-bold text-blue-500">
-						{{ data()?.dispatch?.total || 0 }}
-					</h2>
-				</div>
-				<mat-icon class="!w-10 !h-10 !text-4xl text-blue-500"> local_shipping </mat-icon>
-			</div>
-		</mat-card>
-
-		<mat-card class="p-4">
-			<div class="flex items-center justify-between">
-				<div>
-					<p class="text-sm text-slate-500">Returns</p>
-					<h2 class="text-3xl font-bold text-red-500">
-						{{ data()?.returns?.total || 0 }}
-					</h2>
-				</div>
-				<mat-icon class="!w-10 !h-10 !text-4xl text-red-500"> assignment_return </mat-icon>
-			</div>
-		</mat-card>
-
-		<mat-card class="p-4">
-			<div class="flex items-center justify-between">
-				<div>
-					<p class="text-sm text-slate-500">In Stock</p>
-					<h2 class="text-3xl font-bold text-green-500">
-						{{ data()?.inventory?.inStock || 0 }}
-					</h2>
-				</div>
-				<mat-icon class="!w-10 !h-10 !text-4xl text-green-500"> warehouse </mat-icon>
 			</div>
 		</mat-card>
 	</div>
 
-	<!-- QC Breakdown -->
-	<mat-card class="p-6">
-		<h2 class="text-lg font-semibold mb-4">QC Breakdown</h2>
+	<!-- Outbound Operation -->
+	<h2 class="text-lg font-mediam mb-1">Outbound Operations</h2>
+	<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+		<!-- Picklist -->
+		<mat-card class="p-5">
+			<div class="flex items-center justify-between mb-4">
+				<h3 class="font-medium text-lg">Picklists</h3>
 
-		<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-			<div class="border-l-4 border-yellow-500 rounded p-4">
-				<p class="text-sm text-slate-500">Pending</p>
-				<h3 class="text-2xl font-bold">
-					{{ data()?.qc?.pending || 0 }}
-				</h3>
+				<mat-icon class="text-primary"> checklist </mat-icon>
 			</div>
 
-			<div class="border-l-4 border-green-500 rounded p-4">
-				<p class="text-sm text-slate-500">Approved</p>
-				<h3 class="text-2xl font-bold">
-					{{ data()?.qc?.approved || 0 }}
-				</h3>
-			</div>
-
-			<div class="border-l-4 border-red-500 rounded p-4">
-				<p class="text-sm text-slate-500">Rejected</p>
-				<h3 class="text-2xl font-bold">
-					{{ data()?.qc?.rejected || 0 }}
-				</h3>
-			</div>
-
-			<div class="border-l-4 border-blue-500 rounded p-4">
-				<p class="text-sm text-slate-500">Total</p>
-				<h3 class="text-2xl font-bold">
-					{{ data()?.qc?.total }}
-				</h3>
-			</div>
-		</div>
-	</mat-card>
-
-	<!-- Operations -->
-	<div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-		<mat-card class="p-6">
-			<h2 class="text-lg font-semibold mb-4">Putaway Status</h2>
-
-			<div class="flex justify-around">
-				<div class="text-center">
-					<p class="text-slate-500">Pending</p>
-					<h3 class="text-3xl font-bold">
-						{{ data()?.putaway?.pending || 0 }}
+			<div class="grid grid-cols-2 gap-3">
+				<div class="rounded-xl p-3 bg-primary/10">
+					<p class="text-sm opacity-70">Total</p>
+					<h3 class="text-2xl font-bold">
+						{{ data()?.outbound?.picklist?.total || 0 }}
 					</h3>
 				</div>
 
-				<div class="text-center">
-					<p class="text-slate-500">Completed</p>
-					<h3 class="text-3xl font-bold text-green-500">
-						{{ data()?.putaway?.completed || 0 }}
+				<div class="rounded-xl p-3 bg-amber-500/10">
+					<p class="text-sm opacity-70">Pending</p>
+					<h3 class="text-2xl font-bold">
+						{{ data()?.outbound?.picklist?.pending || 0 }}
+					</h3>
+				</div>
+
+				<div class="rounded-xl p-3 bg-blue-500/10">
+					<p class="text-sm opacity-70">In Progress</p>
+					<h3 class="text-2xl font-bold">
+						{{ data()?.outbound?.picklist?.inProgress || 0 }}
+					</h3>
+				</div>
+
+				<div class="rounded-xl p-3 bg-green-500/10">
+					<p class="text-sm opacity-70">Completed</p>
+					<h3 class="text-2xl font-bold">
+						{{ data()?.outbound?.picklist?.completed || 0 }}
 					</h3>
 				</div>
 			</div>
 		</mat-card>
 
-		<mat-card class="p-6">
-			<h2 class="text-lg font-semibold mb-4">Picking Status</h2>
+		<!-- Stock Movement -->
+		<mat-card class="p-5">
+			<div class="flex items-center justify-between mb-4">
+				<h3 class="font-medium text-lg">Stock Movement</h3>
 
-			<div class="flex justify-around">
+				<mat-icon class="text-primary"> move_down </mat-icon>
+			</div>
+
+			<div class="space-y-4">
+				<div class="flex justify-between items-center">
+					<span>Picked Qty</span>
+
+					<span class="font-bold text-2xl">
+						{{ data()?.outbound?.stockMovement?.picked || 0 }}
+					</span>
+				</div>
+
+				<div class="flex justify-between items-center">
+					<span>Issued Qty</span>
+
+					<span class="font-bold text-2xl">
+						{{ data()?.outbound?.stockMovement?.issued || 0 }}
+					</span>
+				</div>
+			</div>
+		</mat-card>
+
+		<!-- Dispatch -->
+		<mat-card class="p-5">
+			<div class="flex items-center justify-between mb-4">
+				<h3 class="font-medium text-lg">Dispatch</h3>
+
+				<mat-icon class="text-primary"> local_shipping </mat-icon>
+			</div>
+
+			<div class="grid grid-cols-3 gap-3">
 				<div class="text-center">
-					<p class="text-slate-500">Pending</p>
-					<h3 class="text-3xl font-bold">
-						{{ data()?.picking?.pending || 0 }}
+					<p class="text-sm opacity-70">Total</p>
+
+					<h3 class="text-2xl font-bold">
+						{{ data()?.outbound?.dispatch?.total || 0 }}
 					</h3>
 				</div>
 
 				<div class="text-center">
-					<p class="text-slate-500">Completed</p>
-					<h3 class="text-3xl font-bold text-green-500">
-						{{ data()?.picking?.completed || 0 }}
+					<p class="text-sm opacity-70">Pending</p>
+
+					<h3 class="text-2xl font-bold text-amber-500">
+						{{ data()?.outbound?.dispatch?.pending || 0 }}
 					</h3>
+				</div>
+
+				<div class="text-center">
+					<p class="text-sm opacity-70">Dispatched</p>
+
+					<h3 class="text-2xl font-bold text-green-500">
+						{{ data()?.outbound?.dispatch?.dispatched || 0 }}
+					</h3>
+				</div>
+			</div>
+		</mat-card>
+	</div>
+
+	<!-- Master Data -->
+	<h2 class="text-lg font-mediam mb-1">Master Data</h2>
+	<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+		<mat-card class="p-5">
+			<div class="flex justify-between items-center">
+				<div>
+					<p class="opacity-70">Customers</p>
+					<h2 class="text-4xl font-bold">{{ data()?.masterData?.customers }}</h2>
+				</div>
+				<mat-icon class="!text-5xl"> groups</mat-icon>
+			</div>
+		</mat-card>
+
+		<mat-card class="p-5">
+			<h3 class="font-medium mb-3">Materials</h3>
+
+			<div class="space-y-2">
+				<div class="flex justify-between">
+					<span>Total</span>
+					<span class="font-medium"> {{ data()?.masterData?.materials?.total }}</span>
+				</div>
+
+				<div class="flex justify-between">
+					<span>In Stock</span>
+					<span class="font-medium text-green-500"> {{ data()?.masterData?.materials?.inStock }} </span>
+				</div>
+
+				<div class="flex justify-between">
+					<span>Out of Stock</span>
+					<span class="font-medium text-red-500"> {{ data()?.masterData?.materials?.outOfStock }}</span>
+				</div>
+			</div>
+		</mat-card>
+
+		<mat-card class="p-5">
+			<h3 class="font-medium mb-3">Locations</h3>
+			<div class="space-y-2">
+				<div class="flex justify-between">
+					<span>Sites</span>
+					<span>{{ data()?.masterData?.locations?.sites || 0 }}</span>
+				</div>
+				<div class="flex justify-between">
+					<span>Zones</span>
+					<span>{{ data()?.masterData?.locations?.zones || 0 }}</span>
+				</div>
+				<div class="flex justify-between">
+					<span>Racks</span>
+					<span>{{ data()?.masterData?.locations?.racks || 0 }}</span>
+				</div>
+
+				<div class="flex justify-between">
+					<span>Shelves</span>
+					<span>{{ data()?.masterData?.locations?.shelves || 0 }}</span>
 				</div>
 			</div>
 		</mat-card>

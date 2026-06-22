@@ -43,6 +43,7 @@ export const AppModule = [
 	RouterLink,
 	RouterLinkActive,
 
+	MatDatepickerModule,
 	MatSidenavModule,
 	MatIconModule,
 	MatToolbarModule,
