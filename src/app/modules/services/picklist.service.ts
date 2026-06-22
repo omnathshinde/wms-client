@@ -25,6 +25,14 @@ export class PicklistService extends BaseService {
 		return this.http.get<ApiResponse<T>>(this.getUrl(`/search/records${query}`));
 	}
 
+	create<T>(data: T): Observable<ApiMessage> {
+		return this.http.post<ApiMessage>(this.getUrl(), data);
+	}
+
+	update<T>(id: number | string, data: T): Observable<ApiMessage> {
+		return this.http.put<ApiMessage>(this.getUrl(`/${id}`), data);
+	}
+
 	bulkUpload(payload: BulkUploadPayload[]): Observable<ApiMessage> {
 		return this.http.post<ApiMessage>(this.getUrl(`/bulk-records`), payload);
 	}

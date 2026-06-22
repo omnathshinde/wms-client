@@ -30,7 +30,6 @@ export class Inward extends UiComponent implements OnInit {
 	});
 
 	ngOnInit(): void {
-		this.userSiteId = this.authService.user()?.siteId ?? null;
 		this.loadSites();
 		this.form.controls.siteId.valueChanges.subscribe((siteId) => {
 			if (!siteId) {

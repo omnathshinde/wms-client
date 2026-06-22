@@ -22,6 +22,7 @@ export class Customer extends UiComponent {
 	displayedColumns = [
 		{ label: "Name", accessor: "name" as const },
 		{ label: "Description", accessor: "description" as const },
+		{ label: "Site", accessor: (row: CustomerDTO) => row?.site?.name ?? "-" },
 		{ label: "Created At", accessor: "createdAt" as const, date: true },
 		{ label: "Created By", accessor: "createdBy" as const },
 	];

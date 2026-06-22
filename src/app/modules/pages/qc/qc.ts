@@ -18,6 +18,7 @@ export class Qc extends UiComponent implements OnInit {
 	apiUrl = "inward/search/records";
 	displayedColumns = [
 		{ label: "Barcode", accessor: "barcode" as const },
+		{ label: "Material", accessor: (row: InwardDTO) => row.material?.name ?? "-" },
 		{ label: "QC Status", accessor: "qcStatus" as const },
 		{ label: "Created At", accessor: "createdAt" as const, date: true },
 		{ label: "Created By", accessor: "createdBy" as const },

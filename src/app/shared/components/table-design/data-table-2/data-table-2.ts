@@ -31,6 +31,7 @@ export class DataTable2<T extends { id?: number | string }> implements OnInit, O
 		label: string;
 		accessor: keyof T | ((row: T) => unknown) | "actions";
 		date?: boolean;
+		align?: "left" | "center" | "right";
 	}[] = [];
 	@Input() actionButtons: {
 		icon: string;
@@ -40,6 +41,7 @@ export class DataTable2<T extends { id?: number | string }> implements OnInit, O
 		disabled?: (row: T) => boolean;
 		visible?: (row: T) => boolean;
 	}[] = [];
+	@Input() rowColor?: (row: T) => string;
 	@Input() filterFields: Partial<Record<keyof T, string | number | boolean>> = {};
 
 	@Output() action = new EventEmitter<{ type: string; data: T }>();
@@ -73,13 +75,13 @@ export class DataTable2<T extends { id?: number | string }> implements OnInit, O
 	}
 
 	get columnAccessors(): string[] {
-		const baseColumns = this.displayedColumns.map((col) => col.accessor.toString());
-		const hasActions = baseColumns.includes("actions");
-		const finalColumns = [...baseColumns];
-		if (!hasActions) {
-			finalColumns.push("actions");
+		const columns = this.displayedColumns.map((col) => col.accessor.toString());
+
+		if (this.actionButtons.length > 0) {
+			columns.push("actions");
 		}
-		return finalColumns;
+
+		return columns;
 	}
 
 	getData(): void {

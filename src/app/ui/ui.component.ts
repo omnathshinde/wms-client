@@ -1,6 +1,7 @@
 import { inject } from "@angular/core";
 import { FormBuilder } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
+import { ActivatedRoute, Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 
 import { AuthService } from "src/app/core/auth/auth.service";
@@ -23,6 +24,8 @@ import { ZoneService } from "src/app/modules/services/zone.service";
 
 export abstract class UiComponent {
 	protected readonly fb = inject(FormBuilder);
+	protected readonly route = inject(ActivatedRoute);
+	protected readonly router = inject(Router);
 	protected readonly toastr = inject(ToastrService);
 	protected readonly matDialog = inject(MatDialog);
 

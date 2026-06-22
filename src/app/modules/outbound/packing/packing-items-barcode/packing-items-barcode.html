@@ -1,30 +1,23 @@
-<app-header-container title="Packing List"> </app-header-container>
+<app-header-container title="Packing Items"> </app-header-container>
+
 <app-container>
 	<form [formGroup]="searchForm" class="flex flex-col">
 		<div class="flex justify-between gap-1 align-center">
 			<mat-form-field appearance="outline" class="w-full">
-				<mat-label>Picklist Name</mat-label>
-				<input matInput placeholder="Enter picklist name" formControlName="name" />
+				<mat-label>Search by Material Name</mat-label>
+				<input matInput formControlName="materialName" placeholder="Enter a material name" />
 			</mat-form-field>
-
 			<mat-form-field appearance="outline" class="w-full">
-				<mat-label>Picklist Status</mat-label>
-				<mat-select formControlName="picklistStatus">
-					<mat-option value="">All</mat-option>
-					<mat-option value="Pending">Pending</mat-option>
-					<mat-option value="In Progress">In Progress</mat-option>
-					<mat-option value="Completed">Completed</mat-option>
-				</mat-select>
+				<mat-label>Search by Barcode</mat-label>
+				<input matInput formControlName="barcode" placeholder="Enter a barcode" />
 			</mat-form-field>
 		</div>
-
 		<div class="flex justify-end items-center mt-2 flex-wrap gap-2">
 			<div class="flex flex-wrap gap-2">
 				<button type="submit" mat-raised-button color="primary" (click)="onSearch()">
 					<mat-icon>search</mat-icon>
 					Search
 				</button>
-
 				<button type="reset" mat-raised-button color="primary" (click)="onReset()">
 					<mat-icon>autorenew</mat-icon>
 					Reset
@@ -35,12 +28,18 @@
 </app-container>
 <app-container>
 	<app-data-table-2
-		[apiUrl]="apiUrl"
-		[displayedColumns]="displayedColumns"
-		[actionButtons]="actionButtons"
-		[filterFields]="filterFields"
-		(action)="onAction($event)"
+		[apiUrl]="apiUrl1"
+		[displayedColumns]="displayedColumns1"
+		[filterFields]="filterFields1"
 		[rowColor]="rowColor"
 	>
+	</app-data-table-2>
+</app-container>
+
+<app-container>
+	<mat-card-header>
+		<mat-card-title>Picklist Items Barcode</mat-card-title>
+	</mat-card-header>
+	<app-data-table-2 [apiUrl]="apiUrl2" [displayedColumns]="displayedColumns2" [filterFields]="filterFields2">
 	</app-data-table-2>
 </app-container>

@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 
+import { ApiMessage } from "src/app/@types/common/ApiMessage";
 import { ApiResponse } from "src/app/@types/common/ApiResponse";
 import { InwardDTO } from "src/app/@types/models/InwardDTO";
 import { BaseService } from "src/app/ui/ui.service";
@@ -21,5 +22,9 @@ export class PicklistPickerService extends BaseService {
 
 	getById<T>(id: number | string): Observable<T> {
 		return this.http.get<T>(`${this.apiUrl}/role/${id}`);
+	}
+
+	create<T>(data: T): Observable<ApiMessage> {
+		return this.http.post<ApiMessage>(this.getUrl(), data);
 	}
 }

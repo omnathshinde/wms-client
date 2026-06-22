@@ -10,6 +10,18 @@ export const OutboundRoutes: Routes = [
 		loadComponent: () => import("src/app/modules/outbound/picking/picking").then((m) => m.Picking),
 	},
 	{
+		path: "packing/:picklistId",
+		loadComponent: () =>
+			import("src/app/modules/outbound/packing/packing-items/packing-items").then((m) => m.PackingItems),
+	},
+	{
+		path: "packing/items/:picklistId",
+		loadComponent: () =>
+			import("src/app/modules/outbound/packing/packing-items-barcode/packing-items-barcode").then(
+				(m) => m.PackingItemsBarcode,
+			),
+	},
+	{
 		path: "dispatch",
 		loadComponent: () => import("src/app/modules/outbound/dispatch/dispatch").then((m) => m.Dispatch),
 	},

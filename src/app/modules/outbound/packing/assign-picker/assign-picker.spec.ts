@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { UserDailog } from "./user-dailog";
+import { AssignPicker } from "./assign-picker";
 
-describe("UserDailog", () => {
-	let component: UserDailog;
-	let fixture: ComponentFixture<UserDailog>;
+describe("AssignPicker", () => {
+	let component: AssignPicker;
+	let fixture: ComponentFixture<AssignPicker>;
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [UserDailog],
+			imports: [AssignPicker],
 		}).compileComponents();
 
-		fixture = TestBed.createComponent(UserDailog);
+		fixture = TestBed.createComponent(AssignPicker);
 		component = fixture.componentInstance;
-		fixture.detectChanges();
+		await fixture.whenStable();
 	});
 
 	it("should create", () => {

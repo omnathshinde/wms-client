@@ -1,0 +1,38 @@
+<mat-toolbar color="primary">
+	<mat-icon class="mr-2"> assignment_ind </mat-icon>
+	<span> {{ data.userId ? "Reassign Picker" : "Assign Picker" }} for {{ data.name }}</span>
+</mat-toolbar>
+
+<form [formGroup]="form">
+	<mat-dialog-content class="flex flex-col gap-4">
+		<mat-form-field appearance="outline" class="w-full">
+			<mat-label>Search Picker</mat-label>
+			<input
+				matInput
+				[formControl]="userSearchControl"
+				[matAutocomplete]="pickerAuto"
+				placeholder="Search user..."
+			/>
+			<mat-autocomplete
+				#pickerAuto="matAutocomplete"
+				[displayWith]="displayUser"
+				(optionSelected)="selectUser($event.option.value)"
+			>
+				@for (user of users; track user.id) {
+					<mat-option [value]="user"> {{ user.name }} - ({{ user.username }})</mat-option>
+				}
+			</mat-autocomplete>
+
+			@if (form.get("newPickerId")?.hasError("required")) {
+				<mat-error> Picker is required </mat-error>
+			}
+		</mat-form-field>
+	</mat-dialog-content>
+
+	<mat-dialog-actions align="end">
+		<button type="submit" mat-flat-button color="primary" [disabled]="form.invalid" (click)="onSubmit()">
+			{{ data.userId ? "Reassign" : "Assign" }}
+		</button>
+		<button type="button" mat-flat-button color="warn" (click)="onCancel()">Cancel</button>
+	</mat-dialog-actions>
+</form>

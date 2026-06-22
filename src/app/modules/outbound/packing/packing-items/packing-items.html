@@ -1,0 +1,53 @@
+<app-header-container title="Packing Items"> </app-header-container>
+
+<app-container cardClass="p-4">
+	<div class="flex items-start gap-3 lg:flex-row lg:items-start">
+		<form [formGroup]="searchForm" class="flex-1">
+			<mat-form-field appearance="outline" class="w-full">
+				<mat-label>Scan Barcode</mat-label>
+				<input
+					appAutofocus
+					matInput
+					formControlName="barcode"
+					(keyup.enter)="onScanBarcode()"
+					placeholder="Scan barcode here"
+				/>
+			</mat-form-field>
+		</form>
+
+		<div class="flex gap-2">
+			<button type="button" mat-raised-button color="primary" (click)="onScanBarcode()">
+				<mat-icon>qr_code_scanner</mat-icon>
+				Scan
+			</button>
+
+			<button type="button" mat-raised-button color="warn">
+				<mat-icon>refresh</mat-icon>
+				Clear
+			</button>
+		</div>
+	</div>
+</app-container>
+<app-container>
+	<app-data-table-2
+		[apiUrl]="apiUrl1"
+		[displayedColumns]="displayedColumns1"
+		[filterFields]="filterFields1"
+		[rowColor]="rowColor"
+	>
+	</app-data-table-2>
+</app-container>
+
+<app-container>
+	<mat-card-header>
+		<mat-card-title>Shiba Inu</mat-card-title>
+	</mat-card-header>
+	<app-data-table-2
+		[apiUrl]="apiUrl2"
+		[displayedColumns]="displayedColumns2"
+		[actionButtons]="actionButtons"
+		[filterFields]="filterFields2"
+		(action)="onAction($event)"
+	>
+	</app-data-table-2>
+</app-container>
