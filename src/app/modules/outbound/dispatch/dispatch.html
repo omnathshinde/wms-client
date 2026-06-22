@@ -1,1 +1,53 @@
-<p>dispatch works!</p>
+<app-header-container title="Dispatch Management"></app-header-container>
+
+<app-container cardClass="p-4">
+	<form [formGroup]="form">
+		<mat-form-field appearance="outline" class="w-full">
+			<mat-label>Site</mat-label>
+			<mat-select formControlName="siteId">
+				@for (site of sites(); track site.id) {
+					<mat-option [value]="site.id"> {{ site.name }}</mat-option>
+				}
+			</mat-select>
+		</mat-form-field>
+		<div class="grid grid-cols-2 gap-2 md:grid-cols-2">
+			<mat-form-field appearance="outline">
+				<mat-label>Picklist Number</mat-label>
+				<mat-select formControlName="picklistId">
+					@for (picklist of picklists(); track picklist.id) {
+						<mat-option [value]="picklist.id"> {{ picklist.name }} </mat-option>
+					}
+				</mat-select>
+				@if (noPicklists) {
+					<mat-hint class="text-red-500"> No completed picklists available for dispatch </mat-hint>
+				}
+			</mat-form-field>
+
+			<mat-form-field appearance="outline">
+				<mat-label>Vehicle Number</mat-label>
+				<input matInput formControlName="vehicleNo" placeholder="MH12AB1234" />
+				<mat-hint> Minimum 2 characters allowed</mat-hint>
+			</mat-form-field>
+		</div>
+
+		<div class="mt-4 flex justify-end gap-2">
+			<button type="button" mat-raised-button color="primary" (click)="onDispatch()" [disabled]="form.invalid">
+				<mat-icon>local_shipping</mat-icon>
+				Issue Dispatch
+			</button>
+
+			<button type="button" mat-stroked-button color="warn" (click)="onReset()">
+				<mat-icon>restart_alt</mat-icon>
+				Reset
+			</button>
+		</div>
+	</form>
+</app-container>
+
+<app-container>
+	<mat-card-header>
+		<mat-card-title>Recent Dispatch List</mat-card-title>
+	</mat-card-header>
+	<app-data-table-2 [apiUrl]="apiUrl" [displayedColumns]="displayedColumns" [filterFields]="filterFields">
+	</app-data-table-2>
+</app-container>

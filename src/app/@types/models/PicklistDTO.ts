@@ -11,6 +11,15 @@ export interface PicklistDTO extends BaseDTO {
 	customerId: number | string;
 	picklistStatus: "Pending" | "In Progress" | "Completed" | "Issued";
 	isIssued: boolean;
+	startedBy: string;
+	startedAt: Date;
+	completedBy: string;
+	completedAt: Date;
+	issueDate: Date;
+	issueBy: string;
+	isPartial: boolean;
+	invoice: string;
+	vehicleNo: string;
 	customer?: CustomerDTO;
 	user?: UserDTO;
 }
