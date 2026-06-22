@@ -39,7 +39,7 @@
 								{{ material.name }}
 							</mat-option>
 						}
-					} @else if (materialSearchControl.value.trim()) {
+					} @else if (materialSearchControl.value) {
 						<mat-option disabled> Material Not Found </mat-option>
 					}
 				</mat-autocomplete>
@@ -92,14 +92,21 @@
 		<!-- Actions -->
 		<div class="mt-4 flex justify-end gap-2">
 			<button type="button" mat-raised-button color="primary" [disabled]="form.invalid" (click)="onSave()">
-				<mat-icon>save</mat-icon>
-				Save
+				<mat-icon>inventory</mat-icon>
+				Create Inward
 			</button>
 
-			<button type="button" mat-stroked-button color="warn" (click)="onReset()">
+			<button type="button" mat-stroked-button color="primary" (click)="onReset()">
 				<mat-icon>refresh</mat-icon>
 				Reset
 			</button>
 		</div>
 	</form>
+</app-container>
+
+<app-container>
+	<mat-card-header>
+		<mat-card-title>Recent Material Inward</mat-card-title>
+	</mat-card-header>
+	<app-data-table-2 [apiUrl]="apiUrl" [displayedColumns]="displayedColumns"> </app-data-table-2>
 </app-container>

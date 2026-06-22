@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup } from "@angular/forms";
+import Swal from "sweetalert2";
 
 import { PicklistDTO } from "src/app/@types/models/PicklistDTO";
 import { AppComponent } from "src/app/core/configs/app.component";
@@ -46,18 +47,32 @@ export class Packing extends UiComponent implements OnInit {
 			visible: (row: PicklistDTO) => row.picklistStatus === "Pending" || row.picklistStatus === "In Progress",
 		},
 		{
+			type: "pending",
+			icon: "play_circle_filled",
+			tooltip: "Start Picklist",
+			color: "primary",
+			visible: (row: PicklistDTO) => row.picklistStatus === "Pending",
+		},
+		{
 			type: "start",
 			icon: "arrow_forward",
 			tooltip: "Start Picking",
 			color: "primary",
-			visible: (row: PicklistDTO) => row.picklistStatus === "Pending" || row.picklistStatus === "In Progress",
+			visible: (row: PicklistDTO) => row.picklistStatus === "In Progress",
 		},
 		{
 			type: "view",
 			icon: "remove_red_eye",
 			tooltip: "Start Picking",
 			color: "primary",
-			visible: (row: PicklistDTO) => row.picklistStatus === "Completed",
+			visible: (row: PicklistDTO) => row.picklistStatus === "Pending" || row.picklistStatus === "Completed",
+		},
+		{
+			type: "delete",
+			icon: "delete",
+			tooltip: "Delete Picklist",
+			color: "warn",
+			visible: (row: PicklistDTO) => row.picklistStatus === "Pending" || row.picklistStatus === "In Progress",
 		},
 	];
 
@@ -106,9 +121,15 @@ export class Packing extends UiComponent implements OnInit {
 			case "assign":
 				this.onAssignPicker(event.data);
 				break;
+			case "pending":
+				this.onStart(event.data, event.type);
+				break;
 			case "start":
 			case "view":
-				this.onStart(event.data);
+				this.onStart(event.data, event.type);
+				break;
+			case "delete":
+				this.onDelete(event.data);
 				break;
 			default:
 				this.toastr.error("Unknown action");
@@ -132,9 +153,70 @@ export class Packing extends UiComponent implements OnInit {
 			});
 	}
 
-	onStart(data: PicklistDTO): void {
-		if (data.picklistStatus == "In Progress" || data.picklistStatus === "Pending")
-			this.router.navigate(["/outbound/packing", data.id]);
-		else this.router.navigate(["/outbound/packing/items", data.id]);
+	onStart(data: PicklistDTO, type: string): void {
+		if (data.picklistStatus === "Pending" && type === "pending") {
+			this.picklistService
+				.update(data.id, {
+					picklistStatus: "In Progress",
+				})
+				.subscribe({
+					next: (res) => {
+						this.toastr.success(res.message);
+						this.onSearch();
+					},
+				});
+
+			return;
+		}
+		if (data.picklistStatus === "In Progress") {
+			this.router.navigate(["/outbound/packing", data.id], {
+				queryParams: {
+					status: data.picklistStatus,
+				},
+			});
+		}
+
+		if (data.picklistStatus === "Completed" || (data.picklistStatus === "Pending" && type == "view")) {
+			if (data.picklistStatus === "Pending")
+				this.router.navigate(["/outbound/packing/items", data.id], {
+					queryParams: {
+						status: data.picklistStatus,
+					},
+				});
+			else
+				this.router.navigate(["/outbound/packing/items", data.id], {
+					queryParams: {
+						status: data.picklistStatus,
+					},
+				});
+		}
+	}
+
+	onDelete(data: PicklistDTO): void {
+		Swal.fire({
+			title: "Delete Picklist?",
+			text: `Are you sure you want to delete ${data.name}?`,
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonText: "Yes, Delete",
+			cancelButtonText: "Cancel",
+			confirmButtonColor: "#d33",
+		}).then((result) => {
+			if (!result.isConfirmed) return;
+
+			this.picklistService.delete(data.id).subscribe({
+				next: (res) => {
+					Swal.fire({
+						title: "Deleted!",
+						text: res.message,
+						icon: "success",
+						timer: 2000,
+						showConfirmButton: false,
+					});
+
+					this.onSearch();
+				},
+			});
+		});
 	}
 }

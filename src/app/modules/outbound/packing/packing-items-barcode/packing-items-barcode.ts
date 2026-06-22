@@ -57,6 +57,12 @@ export class PackingItemsBarcode extends UiComponent implements OnInit {
 	picklistId!: number | string;
 	ngOnInit(): void {
 		this.picklistId = Number(this.route.snapshot.paramMap.get("picklistId"));
+		this.route.queryParams.subscribe((params) => {
+			const status = params["status"];
+			if (status === "In Progress") {
+				this.router.navigate(["outbound/packing"]);
+			}
+		});
 		this.onSearch();
 		this.searchForm.valueChanges.subscribe(() => {
 			this.onSearch();

@@ -43,6 +43,7 @@ export class Qc extends UiComponent implements OnInit {
 
 	filterFields: Partial<Record<keyof InwardDTO, string | number | boolean>> = {
 		status: 1,
+		isPutAway: 0,
 		barcode: "",
 		qcStatus: "",
 	};
@@ -63,6 +64,7 @@ export class Qc extends UiComponent implements OnInit {
 
 		this.filterFields = {
 			status: 1,
+			isPutAway: 0,
 			barcode: formValue.barcode || "",
 			qcStatus: formValue.qcStatus || "",
 		};
@@ -74,7 +76,7 @@ export class Qc extends UiComponent implements OnInit {
 			qcStatus: "",
 		});
 
-		this.filterFields = { status: 1, barcode: "", qcStatus: "" };
+		this.filterFields = { status: 1, isPutAway: 0, barcode: "", qcStatus: "" };
 	}
 
 	onAction(event: { type: string; data: InwardDTO }): void {

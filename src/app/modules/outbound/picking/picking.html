@@ -82,7 +82,7 @@
 			</mat-form-field>
 		</div>
 
-		<div>
+		<div class="flex justify-end">
 			<button
 				mat-raised-button
 				color="primary"
@@ -90,11 +90,12 @@
 				(click)="addMaterial()"
 				[disabled]="!canAddMaterial"
 			>
-				Add
+				Add Material
 			</button>
 		</div>
 	</form>
 </app-container>
+
 <app-container>
 	<div class="mt-4 overflow-auto">
 		<table mat-table [dataSource]="picklistItems()" class="w-full">
@@ -133,7 +134,7 @@
 			<tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 		</table>
 	</div>
-	<div class="mt-4">
+	<div class="mt-4 flex justify-end">
 		<button
 			type="button"
 			mat-raised-button

@@ -33,6 +33,10 @@ export class PicklistService extends BaseService {
 		return this.http.put<ApiMessage>(this.getUrl(`/${id}`), data);
 	}
 
+	delete(id: number | string): Observable<ApiMessage> {
+		return this.http.delete<ApiMessage>(this.getUrl(`/${id}`));
+	}
+
 	bulkUpload(payload: BulkUploadPayload[]): Observable<ApiMessage> {
 		return this.http.post<ApiMessage>(this.getUrl(`/bulk-records`), payload);
 	}

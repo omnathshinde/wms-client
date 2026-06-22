@@ -3,6 +3,7 @@ import { FormControl, Validators } from "@angular/forms";
 import { MatAutocompleteSelectedEvent } from "@angular/material/autocomplete";
 import { debounceTime, distinctUntilChanged } from "rxjs";
 
+import { InwardDTO } from "src/app/@types/models/InwardDTO";
 import { MaterialDTO } from "src/app/@types/models/MaterialDTO";
 import { SiteDTO } from "src/app/@types/models/SiteDTO";
 import { AppComponent } from "src/app/core/configs/app.component";
@@ -25,9 +26,20 @@ export class Inward extends UiComponent implements OnInit {
 	materials: MaterialDTO[] = [];
 
 	selectedMaterial: MaterialDTO | null = null;
-	materialSearchControl = new FormControl<string>("", {
-		nonNullable: true,
-	});
+	materialSearchControl = new FormControl<string | MaterialDTO>("");
+
+	apiUrl = "inward";
+	displayedColumns = [
+		{ label: "Barcode", accessor: "barcode" as const },
+		{ label: "Material", accessor: (row: InwardDTO) => row.material?.name ?? "-" },
+		{ label: "QC Status", accessor: "qcStatus" as const },
+		{
+			label: "Putaway Status",
+			accessor: (row: InwardDTO) => (row.isPutAway ? "Completed" : "Pending"),
+		},
+		{ label: "Created At", accessor: "createdAt" as const, date: true },
+		{ label: "Created By", accessor: "createdBy" as const },
+	];
 
 	ngOnInit(): void {
 		this.loadSites();
@@ -40,14 +52,17 @@ export class Inward extends UiComponent implements OnInit {
 			this.materialSearchControl.setValue("", { emitEvent: false });
 			this.form.patchValue({ materialId: null, shelfName: null });
 		});
-		this.materialSearchControl.valueChanges.pipe(debounceTime(300), distinctUntilChanged()).subscribe((search) => {
-			if (this.selectedMaterial && search !== this.selectedMaterial.name) {
+		this.materialSearchControl.valueChanges.pipe(debounceTime(300), distinctUntilChanged()).subscribe((value) => {
+			if (typeof value !== "string") {
+				return;
+			}
+			if (this.selectedMaterial && value !== this.selectedMaterial.name) {
 				this.selectedMaterial = null;
 				this.form.patchValue({
 					materialId: null,
 				});
 			}
-			this.searchMaterial(search ?? "");
+			this.searchMaterial(value);
 		});
 	}
 

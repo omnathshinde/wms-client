@@ -11,7 +11,8 @@ import { UiComponent } from "src/app/ui/ui.component";
 interface AssignPickerDialogData {
 	id: number;
 	name: string;
-	userId?: number | null;
+	siteId?: number | string | null;
+	userId?: number | string | null;
 	userName?: string | null;
 }
 
@@ -39,12 +40,23 @@ export class AssignPicker extends UiComponent implements OnInit {
 			newPickerId: [null, Validators.required],
 		});
 
+		this.userSearchControl.valueChanges.subscribe((value) => {
+			if (typeof value === "string") {
+				this.form.patchValue(
+					{
+						newPickerId: null,
+					},
+					{ emitEvent: false },
+				);
+			}
+		});
+
 		this.userSearchControl.valueChanges.pipe(debounceTime(300), distinctUntilChanged()).subscribe((value) => {
 			if (typeof value !== "string") {
 				return;
 			}
 			const search = value.trim();
-			if (search.length < 2) {
+			if (!search) {
 				this.users = [];
 				return;
 			}
@@ -53,7 +65,7 @@ export class AssignPicker extends UiComponent implements OnInit {
 	}
 
 	searchUsers(search: string): void {
-		const query = `?status=1&name=${encodeURIComponent(search)}`;
+		const query = `?status=1&siteId=${this.data.siteId}&name=${encodeURIComponent(search)}`;
 		this.userService.search<UserDTO>(query).subscribe({
 			next: (res) => {
 				this.users = res.rows.filter((user) => user.id !== this.data.userId);

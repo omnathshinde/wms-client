@@ -13,7 +13,7 @@ import { UiComponent } from "src/app/ui/ui.component";
 	styleUrl: "./putaway.scss",
 })
 export class Putaway extends UiComponent implements AfterViewInit {
-	apiUrl = "inward/search/records?inStock=1&isPutAway=0";
+	apiUrl = "inward/search/records";
 	displayedColumns = [
 		{ label: "Barcode", accessor: "barcode" as const },
 		{ label: "Material", accessor: "materialName" as const },

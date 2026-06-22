@@ -79,6 +79,12 @@ export class PackingItems extends UiComponent implements OnInit {
 	picklistId!: number | string;
 	ngOnInit(): void {
 		this.picklistId = Number(this.route.snapshot.paramMap.get("picklistId"));
+		this.route.queryParams.subscribe((params) => {
+			const status = params["status"];
+			if (status !== "In Progress") {
+				this.router.navigate(["/outbound/packing"]);
+			}
+		});
 
 		this.filterFields1 = {
 			status: 1,
@@ -122,10 +128,6 @@ export class PackingItems extends UiComponent implements OnInit {
 						this.onCompletePicklist();
 						return;
 					}
-
-					if (res.picklistStatus === "In Progress") {
-						this.updatePicklistStatus("In Progress");
-					}
 				},
 				error: () => {
 					this.searchForm.patchValue({
@@ -152,7 +154,7 @@ export class PackingItems extends UiComponent implements OnInit {
 			this.updatePicklistStatus("Completed", true);
 		});
 	}
-	private updatePicklistStatus(picklistStatus: "In Progress" | "Completed", redirect = false): void {
+	private updatePicklistStatus(picklistStatus: "Completed", redirect = false): void {
 		this.picklistService
 			.update(this.picklistId, {
 				picklistStatus,
@@ -161,7 +163,6 @@ export class PackingItems extends UiComponent implements OnInit {
 				next: (res) => {
 					if (picklistStatus === "Completed") {
 						this.toastr.success(res.message);
-
 						if (redirect) {
 							this.router.navigate(["/outbound/packing"]);
 						}
@@ -169,6 +170,7 @@ export class PackingItems extends UiComponent implements OnInit {
 				},
 			});
 	}
+
 	refreshTables(): void {
 		this.filterFields1 = {
 			...this.filterFields1,
